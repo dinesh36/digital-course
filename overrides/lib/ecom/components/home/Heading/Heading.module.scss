@@ -1,0 +1,60 @@
+.sectionHeading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .sectionLabel {
+    display: block;
+    background-color: color-mix(in oklab, hsl(280 85% 65%) 10%, transparent);
+    padding: var(--size-1) var(--size-3);
+    border-radius: var(--size-5);
+    color: hsl(280 85% 65%);
+    font-size: var(--size-3);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    font-size: var(--size-11);
+    margin: var(--size-1) 0 var(--size-2);
+
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--size-9);
+      line-height: var(--size-10);
+    }
+  }
+
+  .sectionDivider {
+    width: var(--size-12);
+    height: 2px;
+    background: #d4a554;
+    margin: 0 auto;
+  }
+
+  .subText {
+    margin: var(--size-4) auto var(--size-4) auto;
+    font-size: var(--size-4);
+    color: #8a7c75;
+    max-width: 60%;
+    line-height: var(--size-6);
+
+    @media (max-width: $breakpoint-tablet)  {
+      max-width: 80%;
+    }
+  }
+
+  .primaryBtn {
+    margin-top: var(--size-16);
+    padding: var(--size-3) var(--size-7);
+    font-size: calc(var(--size-3) + 2px);
+    @media (max-width: $breakpoint-tablet)  {
+      margin-top: var(--size-8);
+    }
+
+    @media (max-width: $breakpoint-mobile)  {
+      margin-top: var(--size-4);
+    }
+  }
+}
+

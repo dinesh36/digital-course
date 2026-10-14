@@ -1,0 +1,13 @@
+name: courses-ecom pipeline
+
+on:
+  pull_request:
+
+jobs:
+  branch-name-check:
+    uses: Tattva-Design/tattva-ci-workflows/.github/workflows/branch-name-check.yml@master
+
+  app-checks:
+    uses: Tattva-Design/tattva-ci-workflows/.github/workflows/node-app-checks.yml@master
+    secrets:
+      ssh-key: ${{ secrets.MR_ESLINT_SSH_KEY }}

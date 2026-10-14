@@ -1,0 +1,16 @@
+.horizontalScrollContainer {
+  position: relative;
+  .scrollContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--size-4);
+    scroll-behavior: smooth;
+    padding-bottom: var(--size-10);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include leftRightNavButton
+}

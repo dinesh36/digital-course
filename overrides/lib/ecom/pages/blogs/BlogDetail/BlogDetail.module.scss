@@ -1,0 +1,119 @@
+.blogDetailPage {
+  min-height: 100vh;
+  padding: var(--size-12) var(--size-4) var(--size-20) ;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: calc(calc(var(--size-20) * 10) + var(--size-10));
+
+  [data-testid='blog-card'] {
+    min-width: calc(var(--size-15) * 6.25);
+  }
+
+  .backLink {
+    font-size: var(--font-size-2);
+    color: var(--primary-color) !important;
+    margin-bottom: var(--size-5);
+    cursor: pointer;
+    transition: 0.3s;
+    gap: var(--size-2);
+
+    &:hover {
+      transform: translateX(-4px);
+    }
+  }
+
+  .tag {
+    font-size: var(--font-size-2);
+    color: var(--primary-color);
+    padding: var(--size-1) var(--size-3);
+    margin-bottom: var(--size-6);
+    border-radius: 999px;
+    font-weight: 700;
+    background: rgba(91, 43, 238, 0.1);
+    display: inline-block;
+  }
+
+  .featuredImage {
+    width: 100%;
+    border-radius: var(--size-10);
+  }
+
+  .blogMeta {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: var(--size-4);
+    margin-bottom: var(--size-5);
+
+    .metaItem {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--size-2);
+      font-size: var(--font-size-1);
+      color: var(--muted-text-color);
+
+      svg {
+        width: var(--size-4);
+        height: var(--size-4);
+      }
+    }
+  }
+
+  .suggestionsSection {
+    margin-top: var(--size-16);
+    position: relative;
+    overflow: hidden;
+
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--size-6);
+
+      h2 {
+        font-size: var(--size-6);
+      }
+      button {
+        font-size: var(--size-4);
+        padding: var(--size-2) var(--size-4);
+      }
+    }
+
+    .scrollContainer {
+      position: relative;
+      width: 100%;
+
+      [data-testid='scroll-container'] {
+        justify-content: left !important;
+        gap: var(--size-6);
+        padding: var(--size-5) var(--size-8) var(--size-10) var(--size-8);
+      }
+      [data-testid='blog-card'] {
+        min-width: 360px;
+        max-width: 360px;
+
+        @include tablet {
+          min-width: 280px;
+        }
+      }
+      [data-testid='blog-title'] {
+        @include tablet {
+          h2 {
+            font-size: var(--size-5);
+          }
+        }
+      }
+      [data-testid='blog-image'] {
+
+        @include tablet {
+          img {
+            border-radius: var(--size-2);
+          }
+        }
+      }
+    }
+  }
+}

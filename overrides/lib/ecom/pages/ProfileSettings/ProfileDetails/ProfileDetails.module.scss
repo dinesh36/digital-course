@@ -1,0 +1,55 @@
+.profileDetailsCard {
+  background: var(--white-color);
+  border-radius: var(--size-4);
+  padding: var(--size-6);
+  box-shadow: 0 0 calc(var(--size-2) + 2px) rgba(0, 0, 0, 0.10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  width: 100%;
+
+  .header {
+    h1 {
+      font-size: var(--size-6);
+      letter-spacing: -0.6px;
+      font-weight: 700;
+    }
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+
+    .sectionTitle {
+      font-weight: 700;
+      font-size: var(--font-size-4);
+      letter-spacing: -0.45px;
+    }
+    .formWrapper {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: var(--font-size-2);
+        line-height: var(--font-size-5);
+      }
+      input {
+        background: transparent;
+        color: var(--gray-color);
+      }
+
+      input:disabled {
+        background: var(--background-gray-color);
+      }
+
+      .saveBtn {
+        margin-top: var(--size-3);
+        border-radius: 9999px;
+        border: none;
+        font-weight: 600;
+        font-size: var(--font-size-3);
+      }
+    }
+  }
+}

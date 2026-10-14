@@ -1,0 +1,55 @@
+.documentStructureSection {
+  .documentStructureTitle {
+    margin: var(--size-8) 0;
+    color: var(--heading-text-color);
+    font-family: Outfit, sans-serif;
+    font-size: var(--size-7);
+    font-weight: 600;
+    @include tablet{
+      font-size: var(--size-6);
+      margin: var(--size-7) 0;
+    }
+  }
+
+  .documentRowTitle {
+    color: var(--heading-text-color);
+    font-family: Outfit, sans-serif;
+    font-size: calc(var(--size-3) + 2px);
+    font-weight: 600;
+  }
+
+  .documentPoints {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+
+  .documentPointItem {
+    display: flex;
+    align-items: center;
+    gap: var(--size-1);
+    color: #6e6f7b;
+    font-size: calc(var(--size-3) + 2px);
+
+    .checkIcon {
+      width: var(--size-5);
+      height: var(--size-5);
+      color: #6e6f7b;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+  }
+
+  .accordion {
+    .accordionItem {
+      &:hover {
+        .documentRowTitle {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+:root {
+  --primary-color: #5b2bee;
+  --primary-dark-color: #492738;
+  --secondary-color: #F4ECE7;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --text-default-color: #161d25;
+  --tooltip-color: #002c77;
+  --text-deep-blue: #0c3094;
+  --gray-color: #4b5563;
+  --light-gray-color: #f3f4f6;
+  --light-green-color: #008000FF;
+  --tag-background: #203B1D1A;
+  --foreground: #2B2623;
+  --card: #FCFAF8;
+  --primary-foreground: #FCFAF8;
+  --muted: #F2ECE9;
+  --muted-foreground: #8C827C;
+
+  /* Brand palette – Mature Elegant Feminine */
+  --plum: #4A2736;
+
+  /* Shadows */
+  --shadow-hover: 0 12px 40px -8px rgba(184, 92, 122, 0.15);
+  --shadow-glow: 0 0 24px -4px rgba(184, 92, 122, 0.20);
+
+  /** Text colors **/
+  --heading-text-color: #171717;
+  --subheading-text-color: var(--black-color);
+  --body-text-color: var(--text-default-color);
+  --error-text-color: #ef4444;
+  --gray-600: #8E928D;
+  --gray-800: #1f2937;
+  --gray-900: #1A1A1A;
+  --muted-text-color: #868686;
+  --light-gray: #444;
+  --dark-blue-color: #0f172a;
+
+    /* BackGround */
+  --background-white-color: var(--white-color);
+  --background-black-color: var(--black-color);
+  --background-tooltip-color: var(--tooltip-color);
+  --background-dark-blue-color: #0C1E63;
+  --background-dark-green-color: #377E66;
+  --background-dark-black-color: #0000000D;
+  --background-light-green-color: var(--light-green-color);
+  --background-cream-color: #fff7ed;
+  --background-gray-color: #F0F0F0;
+  --background-overlay-color: rgba(0, 0, 0, 0.5);
+  --profile-background: #BCC3D5;
+
+  /* Buttons */
+  --button-color-gray: var(--gray-color);
+  --primary-button: var(--primary-color);
+  --checkout-button: #EFEFEF;
+  --image-editor-button-gradient: linear-gradient(to bottom, #9d3de8, #ff3399);
+  --light-blue-color: #32AAFF;
+  --primary-hover: #5b2bee;
+  --primary-pressed: #5b2bee;
+  --primary-hover-outlined: rgba(172, 93, 120, 0.05);
+  --primary-pressed-outlined: #c8cec8;
+  --black-hover: #474747;
+  --black-pressed: #7a7a7a;
+  --black-hover-outlined: #e7e7e7;
+  --black-pressed-outlined: #b8b8b8;
+
+  /* Borders */
+  --default-border-color: var(--black-color);
+  --border-highlight: #ffb41d;
+  --border-color-light: #E9E2DD;
+  --border-color-light-gray: #d1d5db;
+  --border-color-light-orange: #fed7aa;
+  --color-primary-hover: #0A2E8A;
+
+  /* Icons */
+  --icon-color-black: var(--black-color);
+  --icon-color-light-gray: var(--secondary-color);
+
+  /* Shadows */
+  --default-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 1px;
+
+  /* Opacity */
+  --modal-opacity: rgba(0, 0, 0, 0.5);
+
+  /* Font Size */
+  --font-size-1: 12px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 24px;
+
+  /* Size */
+  --size-0: 0;           /* 0rem */
+  --size-1: 4px;         /* 0.25rem */
+  --size-2: 8px;         /* 0.5rem */
+  --size-3: 12px;        /* 0.75rem */
+  --size-4: 16px;        /* 1rem */
+  --size-5: 20px;        /* 1.25rem */
+  --size-6: 24px;        /* 1.5rem */
+  --size-7: 28px;        /* 1.75rem */
+  --size-8: 32px;        /* 2rem */
+  --size-9: 36px;        /* 2.25rem */
+  --size-10: 40px;       /* 2.5rem */
+  --size-11: 44px;       /* 2.75rem */
+  --size-12: 48px;       /* 3rem */
+  --size-13: 52px;       /* 3.25rem */
+  --size-14: 56px;       /* 3.5rem */
+  --size-15: 60px;       /* 3.75rem */
+  --size-16: 64px;       /* 4rem */
+  --size-17: 68px;       /* 4.25rem */
+  --size-18: 72px;       /* 4.5rem */
+  --size-19: 76px;       /* 4.75rem */
+  --size-20: 80px;       /* 5rem */
+
+  --content-max-width: 1632px; /* Maximum width for content areas across site*/
+  --app-padding: var(--size-4);
+
+  /* Search Results Panel Top Offsets */
+  --header-height: 64px;
+  --announcement-header-height: 34px;
+  --top-header-height: var(--header-height);
+  --main-background: rgb(249, 249, 251)
+}
+
+@media (max-width: 768px) {
+  :root {
+    --app-padding: var(--size-2);
+  }
+}
+
+@media (max-width: 944px) {
+  :root {
+    --header-height: 64px;
+  }
+}
+
+body.with-announcement-header {
+  --top-header-height: calc(var(--header-height) + var(--announcement-header-height));
+}

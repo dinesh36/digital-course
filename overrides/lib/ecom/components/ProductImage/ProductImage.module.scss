@@ -1,0 +1,18 @@
+.skeleton {
+    @include skeleton;
+    width: 80%;
+    aspect-ratio: 2 / 2.5;
+}
+
+.img {
+    display: block;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    object-position: center;
+    background-color: white;
+}
+
+.errorImage {
+    object-fit: contain;
+}

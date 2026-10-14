@@ -1,0 +1,72 @@
+.ctaSection {
+  width: 100%;
+  padding: 96px 0;
+
+  .container {
+    width: 100%;
+    max-width: calc(var(--size-17) * 20);
+    margin: 0 auto;
+    padding: 0 var(--size-4);
+
+    .ctaCard {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--size-12);
+      padding: var(--size-10);
+      text-align: center;
+      background: linear-gradient(135deg, rgba(240, 235, 255, 0.9), rgba(235, 240, 245, 0.9));
+      border: 1px solid rgba(91, 43, 238, 0.2);
+      box-shadow: 0 var(--size-5) var(--size-15) rgba(0, 0, 0, 0.08);
+
+      .topBar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--size-1);
+        background: linear-gradient(to right, #5b2bee, #c35ad1, #5b2bee);
+      }
+
+      h2 {
+        max-width: calc(var(--size-20) * 10);
+        margin: 0 auto var(--size-6) auto;
+        font-size: clamp(30px, 5vw, 60px);
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      p {
+        max-width: calc((var(--size-17) + 2px) * 10);
+        margin: 0 auto var(--size-10) auto;
+        color: var(--muted-foreground);
+        font-size: calc(var(--size-4) + 2px);
+        line-height: 1.7;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: var(--size-4);
+
+        .linkReset {
+          text-decoration: none;
+        }
+
+        .primaryButton {
+          height: var(--size-14);
+          padding: 0 var(--size-10);
+          border-radius: 999px;
+          font-size: var(--size-4);
+          box-shadow: 0  calc(var(--size-4) + 2px) var(--size-10) rgba(91, 43, 238, 0.25);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+          &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 calc(var(--size-4) + 2px) var(--size-10) rgba(91, 43, 238, 0.4);
+          }
+        }
+      }
+    }
+  }
+}
+

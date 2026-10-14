@@ -1,0 +1,35 @@
+.applyCoupon {
+  margin-top: var(--size-5);
+  border: 1px dashed var(--border-color-light);
+  border-radius: var(--size-4);
+  padding: var(--size-5);
+  background: var(--white-color);
+
+  .couponHeader {
+    font-weight: 500;
+    line-height: 1;
+    color: var(--heading-text-color);
+    margin-bottom: var(--size-4);
+  }
+
+  .inputGroup {
+    display: flex;
+
+    input {
+      min-height: var(--size-13);
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .applyButton {
+      font-size: calc(var(--size-3) + 2px);
+      min-height: var(--size-13);
+      border-radius: 0 calc(var(--size-3) + 2px) calc(var(--size-3) + 2px) 0;
+
+      &::after {
+        content: none;
+        display: none;
+      }
+    }
+  }
+}

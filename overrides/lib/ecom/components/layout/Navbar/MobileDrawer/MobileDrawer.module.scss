@@ -1,0 +1,201 @@
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--background-overlay-color);
+  z-index: 50;
+}
+
+.drawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 85%;
+  max-width: 384px;
+  background: var(--card, var(--background-white-color));
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--size-5);
+    border-bottom: 1px solid var(--border, var(--border-color-light));
+
+    .logoWrap {
+      display: flex;
+      align-items: center;
+      gap: var(--size-2);
+
+      .logoIcon {
+        width: var(--size-4);
+        height: var(--size-4);
+        color: var(--primary-dark-color);
+        fill: var(--primary-dark-color);
+      }
+
+      .logoText {
+        font-size: calc(var(--size-5) - 2px);
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+    }
+
+    .closeBtn {
+      padding: var(--size-1);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .authSection {
+    padding: var(--size-5);
+    border-bottom: 1px solid var(--border-color-light);
+
+    .authButton {
+      gap: var(--size-3);
+      width: 100%;
+      padding: var(--size-3) var(--size-7);
+      font-size: var(--font-size-2);
+    }
+  }
+
+  .accountSection {
+    border-top: 1px solid var(--border-color-light);
+    padding: var(--size-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    background-color: var(--background-white-color);
+  }
+
+  .categories {
+    flex: 1;
+    padding: var(--size-2) 0;
+    overflow-y: auto;
+
+    .categoryButton {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 14px var(--size-5);
+      font-size: var(--font-size-2);
+      font-weight: 500;
+      color: var(--foreground);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      .categoryLeft {
+        display: flex;
+        align-items: center;
+        gap: var(--size-2);
+
+        .badge {
+          padding: calc(var(--size-1) - 2px) calc(var(--size-2) + 2px);
+          font-size: calc(var(--size-2) + 2px);
+          font-weight: 700;
+          border-radius: 9999px;
+          background: var(--secondary-color);
+          color: var(--primary-dark-color);
+        }
+      }
+
+      .chevron {
+        width: var(--size-4);
+        height: var(--size-4);
+        transition: transform 0.3s ease;
+      }
+
+      .rotate {
+        transform: rotate(180deg);
+      }
+    }
+
+    .categoryButton:hover {
+      background: var(--muted);
+    }
+
+    .accordionContent {
+      overflow: hidden;
+      background: var(--muted);
+
+      .itemLink {
+        display: block;
+        padding: 10px var(--size-5) 10px var(--size-10);
+        font-size: var(--font-size-2);
+        color: var(--muted-foreground);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        cursor: pointer;
+      }
+
+      .itemLink:hover {
+        color: var(--foreground);
+      }
+
+      .heading {
+        display: block;
+        padding: var(--size-3) var(--size-5) var(--size-1) var(--size-7);
+        font-size: var(--font-size-1);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--muted-foreground);
+        cursor: pointer;
+
+        &:hover {
+          color: var(--foreground);
+        }
+      }
+
+      .active{
+        color: var(--foreground);
+      }
+    }
+  }
+
+  .bottom {
+    border-top: 1px solid var(--border-color-light);
+    padding: var(--size-5);
+
+    .bottomLink {
+      display: flex;
+      align-items: center;
+      gap: var(--size-3);
+      padding: 10px 0;
+      font-size: var(--font-size-2);
+      font-weight: 500;
+      color: var(--foreground);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      .countBadge {
+        margin-left: auto;
+        padding: 2px var(--size-2);
+        font-size: var(--font-size-1);
+        font-weight: 700;
+        border-radius: 9999px;
+        background: var(--secondary-color);
+        color: var(--primary-dark-color);
+      }
+
+      .cartTotal {
+        margin-left: auto;
+        font-size: var(--font-size-2);
+        font-weight: 600;
+        color: var(--primary-dark-color);
+      }
+    }
+
+    .bottomLink:hover {
+      color: var(--primary-dark-color);
+    }
+  }
+}

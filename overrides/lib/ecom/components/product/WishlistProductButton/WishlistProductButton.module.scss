@@ -1,0 +1,40 @@
+.favoriteIconButton {
+  background: white;
+  border: 1px solid var(--border-color-light-gray);
+  border-radius: 50%;
+  width: var(--size-8);
+  height: var(--size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  &:disabled {
+    opacity: 0.5;
+    background: var(--border-color-light-gray);
+    .heartIcon {
+      fill: var(--border-color-light-gray);
+    }
+  }
+
+  svg {
+    path {
+      stroke: #2d272599;
+    }
+  }
+
+  &.favorited svg {
+    path {
+      stroke: var(--primary-color);
+      fill: var(--primary-color);
+    }
+  }
+
+  .heartIcon {
+    margin-top: 2px;
+    width: var(--size-5);
+    height: var(--size-5);
+    fill: var(--white-color);
+    transition: fill 0.2s ease, stroke 0.2s ease;
+    cursor: pointer;
+  }
+}

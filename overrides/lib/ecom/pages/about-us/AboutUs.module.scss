@@ -1,0 +1,265 @@
+.container {
+	max-width: 860px;
+  	margin: 0 auto;
+  	display: flex;
+  	flex-direction: column;
+
+  	.heroSection {
+		text-align: center;
+		margin-bottom: var(--size-12);
+
+		.title {
+			font-size: var(--size-15);
+			margin-bottom: var(--size-6);
+			letter-spacing: -1.5px;
+			span {
+			  background: linear-gradient(90deg, var(--primary-color), #7C3AED, #A855F7);
+			  -webkit-background-clip: text;
+			  background-clip: text;
+			  color: transparent;
+			}
+		}
+
+		.subtitle {
+		  color: #6d6d78;
+		  font-size: var(--size-5);
+		}
+	}
+
+	.missionSection,
+	.methodCard,
+	.expertCard,
+	.commitmentSection {
+		background: var(--white-color);
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		border-radius: var(--size-4);
+		padding: var(--size-12);
+	}
+
+	.missionSection,
+	.methodologySection,
+	.expertSection,
+	.commitmentSection {
+		margin-bottom: calc(var(--size-12) * 2);
+		.sectionTitle {
+			font-size: calc(var(--size-7) + 2px);
+			margin-bottom: var(--size-5);
+			font-weight: 700;
+			line-height: -0.75px;
+		}
+
+		p {
+			color: #6d6d78;
+			font-size: var(--font-size-4);
+			line-height: 1.7;
+		}
+	}
+
+  	.missionSection {
+	  	.sectionContent {
+			display: grid;
+			gap: var(--size-5);
+	  	}
+  	}
+
+  	.methodologySection {
+		.sectionIntro {
+			max-width: 840px;
+			margin-bottom: var(--size-8);
+		}
+
+	  	.methodologyGrid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: var(--size-5);
+
+		  	.methodCard {
+				.iconWrap {
+					width: var(--size-12);
+					height: var(--size-12);
+					border-radius: var(--size-5);
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					background-color: rgba(120, 110, 255, 0.1);
+					color: var(--primary-color);
+					margin-bottom: var(--size-4);
+
+					svg {
+						width: var(--size-6);
+						height: var(--size-6);
+					}
+			    }
+
+				.cardTitle {
+					font-size: var(--size-5);
+					font-weight: 700;
+					line-height: var(--size-7);
+					letter-spacing: -0.5px;
+					margin-bottom: var(--size-3);
+				}
+
+				p {
+					font-size: var(--size-4);
+				}
+			}
+	  	}
+  	}
+
+  	.expertSection {
+		.expertText {
+			margin-bottom: var(--size-7);
+		}
+
+		.expertGrid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: var(--size-5);
+
+			.expertCard {
+				display: flex;
+				align-items: center;
+				gap: var(--size-4);
+				padding: var(--size-5);
+
+				.iconWrap {
+					width: var(--size-11);
+					height: var(--size-11);
+					border-radius: var(--size-3);
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					background-color: rgba(120, 110, 255, 0.1);
+					color: var(--primary-color);
+					svg {
+						width: var(--size-6);
+						height: var(--size-6);
+					}
+				}
+
+				span {
+					font-weight: 600;
+					color: var(--gray-900);
+					font-size: var(--font-size-4);
+				}
+
+				&.designers {
+					.iconWrap {
+						background-color: oklab(0.656 0.239812 -0.0239026 / 0.1);
+						color: oklch(0.592 0.249 0.584);
+					}
+				}
+
+				&.consultants {
+					.iconWrap {
+						background-color: oklab(0.696 -0.162114 0.0511765 / 0.1);
+						color: oklch(0.596 0.145 163.225);
+					}
+				}
+
+				&.dataScientists {
+					.iconWrap {
+						background-color: oklab(0.769 0.0640531 0.176752 / 0.1);
+						color: oklch(0.666 0.179 58.318);
+					}
+				}
+			}
+		}
+    }
+
+	.commitmentSection {
+		background: linear-gradient(140deg, var(--gray-100), var(--primary-color-soft));
+
+		.commitmentText {
+			margin-bottom: var(--size-8);
+		}
+
+	  	.commitmentGrid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: var(--size-6);
+
+			.commitmentHead {
+				display: flex;
+				text-align: center;
+				align-items: center;
+				gap: var(--size-3);
+				margin-bottom: var(--size-4);
+
+				svg {
+					width: var(--size-7);
+					height: var(--size-7);
+					color: var(--primary-color);
+				}
+
+				.cardTitle {
+					font-size: var(--size-5);
+					font-weight: 700;
+					line-height: var(--size-7);
+					letter-spacing: -0.5px;
+				}
+			}
+			p {
+				font-size: var(--size-4);
+			}
+	  	}
+  	}
+
+	.ctaSection {
+		display: flex;
+		justify-content: center;
+		padding-bottom: var(--size-7);
+
+		button {
+			min-width: 220px;
+		}
+	}
+}
+
+@media (max-width: $breakpoint-tablet) {
+	.container {
+		.commitmentSection {
+			.commitmentGrid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+  	}
+}
+
+@media (max-width: $max-mobile-width) {
+	.container {
+		padding-top: var(--size-8);
+		gap: var(--size-8);
+
+		.heroSection {
+		  	padding: var(--size-10) var(--size-3) var(--size-7);
+		}
+
+		.missionSection,
+		.methodologySection,
+		.expertSection,
+		.commitmentSection {
+		  	padding: var(--size-7);
+		}
+
+		.expertSection {
+		  	.expertGrid {
+				grid-template-columns: repeat(1, minmax(0, 1fr));
+		  	}
+		}
+
+		.methodologySection {
+		  	.methodologyGrid {
+				grid-template-columns: repeat(1, minmax(0, 1fr));
+		  	}
+		}
+
+		.commitmentSection {
+		  	.commitmentGrid {
+				grid-template-columns: repeat(1, minmax(0, 1fr));
+		  	}
+		}
+	}
+}
+

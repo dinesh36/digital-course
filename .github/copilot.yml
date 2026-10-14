@@ -1,0 +1,51 @@
+rules:
+  - name: "Render function usage"
+    scope: "function"
+    condition: "jsx_block.length > 3 && !function_name.startsWith('render')"
+    recommendation: "Convert UI JSX into a named render function like 'renderHeaderSection()' to maintain clarity."
+
+  - name: "Return block too long"
+    scope: "function"
+    condition: "return_statement.line_count > 5"
+    recommendation: "Extract long return JSX into a const variable for better readability."
+
+  - name: "BEM-style class naming"
+    scope: "css"
+    condition: "selector.matches('^[a-zA-Z0-9_-]+$') && !selector.contains('__')"
+    recommendation: "Follow BEM naming (e.g., .card, .card__title) for parent-child clarity."
+
+  - name: "Use CSS variables for non-unit values"
+    scope: "css"
+    condition: "property_value.unit != 'px' && property_value.unit != 'rem' && !property_value.startsWith('var(--')"
+    recommendation: "Use CSS custom properties for maintainability (e.g., var(--spacing-md))."
+
+  - name: "Avoid hardcoded hex colors"
+    scope: "css"
+    condition: "property_value.matches('^#(?:[0-9a-fA-F]{3}){1,2}$')"
+    recommendation: "Use color variables like var(--primary-color) instead of hardcoded hex codes."
+
+  - name: "Component naming"
+    scope: "component"
+    condition: "!component_name.matches('^[A-Z][a-zA-Z0-9]+$')"
+    recommendation: "Use PascalCase for components (e.g., ProductCard)."
+
+  - name: "Variable/function naming"
+    scope: "function"
+    condition: "!function_name.matches('^[a-z][a-zA-Z0-9]+$')"
+    recommendation: "Use camelCase for functions and variables."
+
+  - name: "Folder naming convention"
+    scope: "file"
+    condition: "folder_name.matches('[A-Z]|_')"
+    recommendation: "Use kebab-case for folder names (e.g., 'product-list')."
+
+  - name: "Component placement"
+    scope: "file"
+    condition: "component_depth_mismatch == true"
+    recommendation: "Move this component into the appropriate 'atoms', 'molecules', or 'organisms' folder based on scope."
+
+  - name: "Component reuse"
+    scope: "component"
+    condition: "component.duplicate_count > 1"
+    recommendation: "Extract this block into a shared/reusable component and use it in all instances."
+

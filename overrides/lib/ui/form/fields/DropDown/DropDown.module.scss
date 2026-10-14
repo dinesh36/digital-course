@@ -1,0 +1,39 @@
+.dropDownWrapper {
+  position: relative;
+  width: 100%;
+
+  .select {
+    width: 100%;
+    border: 1px solid var(--border-color-light);
+    padding: var(--size-2) var(--size-8) var(--size-2) var(--size-3);
+    border-radius: calc(var(--size-3) + 2px);
+    font-size: var(--size-4);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.isPlaceholder {
+      color: var(--muted-text-color);
+    }
+
+    &:disabled {
+      background-color: var(--light-gray-color);
+      color: var(--black-color);
+      cursor: not-allowed;
+    }
+  }
+  .icon {
+    color: var(--muted-text-color);
+    position: absolute;
+    right: var(--size-4);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: var(--size-4);
+    height: var(--size-4);
+  }
+}

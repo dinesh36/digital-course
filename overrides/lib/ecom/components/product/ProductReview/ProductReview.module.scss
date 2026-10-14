@@ -1,0 +1,113 @@
+.reviewCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: var(--size-2);
+  border-radius: var(--size-7);
+  background: #fcfbfd;
+  box-shadow: var(--default-box-shadow);
+  padding: var(--size-8);
+
+  .reviewTitle {
+    font-weight: 600;
+    font-size: var(--size-6);
+    margin-top: calc(var(--size-6) * -1);
+  }
+
+  .emptyTitle {
+    font-weight: 600;
+    font-size: var(--size-4);
+    line-height: var(--size-5);
+  }
+
+  .emptySubtitle {
+    margin-top: var(--size-2);
+    font-size: calc(var(--size-3) + 2px);
+  }
+
+  .writeReviewButton {
+    font-weight: 600;
+    gap: var(--size-3);
+    border-radius: var(--size-2);
+    margin: var(--size-4) 0;
+  }
+
+  .footerText {
+    font-size: var(--size-3);
+    color: var(--muted-foreground);
+  }
+
+  .reviewFormContainer {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.reviewListContainer {
+  border-radius: var(--size-7);
+  background: #fcfbfd;
+  box-shadow: var(--default-box-shadow);
+  padding: var(--size-8);
+
+  .reviewTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color-light);
+    margin-bottom: var(--size-4);
+    padding-bottom: var(--size-4);
+
+    .listTitle{
+      font-size: var(--size-5);
+      padding-bottom: var(--size-2);
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .ratingSummary {
+      display: flex;
+      align-items: center;
+      gap: var(--size-2);
+
+      h2 {
+        font-size: var(--size-6);
+        line-height: var(--size-10);
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .starSummary {
+        display: flex;
+        gap: var(--size-2);
+        align-items: center;
+        font-weight: 500;
+      }
+
+      .reviewCount {
+        font-size: var(--font-size-2);
+        color: var(--muted-foreground);
+      }
+    }
+
+    .writeReviewButton {
+      font-weight: 600;
+      font-size: var(--font-size-2);
+      gap: var(--size-3);
+      border-radius: var(--size-2);
+      padding: var(--size-2) var(--size-4);
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    .reviewTitleContainer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--size-3);
+      .writeReviewButton {
+        margin-bottom: var(--size-3);
+        width: 100%;
+      }
+    }
+  }
+}

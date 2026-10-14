@@ -1,0 +1,30 @@
+.breadcrumbContainer, .appContainer{
+  @include pageMaxWidthContainer;
+}
+
+.pageContainer{
+  background: var(--main-background);
+  padding-top: var(--header-height);
+}
+
+.breadcrumbContainer {
+  @include mobile {
+    background: var(--light-gray-color);
+    margin-bottom: var(--size-3);
+  }
+}
+
+.appContainer{
+  padding-bottom: var(--size-4);
+}
+
+.imageEditorContainer{
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+.noPaddingBottom {
+  padding: 0 !important;
+  margin: 0 !important;
+}

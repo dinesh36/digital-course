@@ -1,0 +1,59 @@
+.aboutDocumentSection {
+  .aboutDocumentTitle {
+    color: var(--heading-text-color);
+    font-family: Outfit, sans-serif;
+    font-size: var(--size-7);
+    font-weight: 600;
+    margin: var(--size-8) 0;
+    @include tablet{
+      font-size: var(--size-6);
+      margin: var(--size-7) 0;
+    }
+  }
+
+  .aboutDocumentCard {
+    border-radius: var(--size-7);
+    background: var(--white-color);
+    box-shadow: var(--default-box-shadow);
+    padding: var(--size-8);
+
+    @include tablet{
+      padding: var(--size-5);
+    }
+
+    .aboutDocumentDescription {
+      margin: 0;
+      font-size: var(--size-4);
+      color: #17171C;
+    }
+
+    .aboutDocumentList {
+      margin: var(--size-6) 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+
+      @media (min-width: $breakpoint-tablet) {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .aboutDocumentListItem {
+        display: flex;
+        align-items: center;
+        gap: var(--size-3);
+        color: #17171C;
+        font-size: calc(var(--size-3) + 2px);
+        margin-bottom: 16px;
+
+        .checkIcon {
+          width: var(--size-5);
+          height: var(--size-5);
+          color: #0ac14b;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+}

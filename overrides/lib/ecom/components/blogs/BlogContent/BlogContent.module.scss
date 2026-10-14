@@ -1,0 +1,63 @@
+.content {
+  p {
+    margin-bottom: var(--size-6);
+    font-size: var(--font-size-4);
+    line-height: 1.8;
+    color: #6b7280;
+    font-family: Plus Jakarta Sans, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Outfit, sans-serif;
+  }
+
+  h2 {
+    font-size: calc(var(--size-7) + 2px);
+    font-weight: 500;
+    margin-top: var(--size-12);
+    margin-bottom: var(--sze-6) !important;
+    padding-bottom: var(--size-2);
+
+    @include tablet {
+      font-size: var(--size-6) !important;
+      line-height: var(--size-7) !important;
+    }
+  }
+
+  h3 {
+    font-size: var(--size-6);
+    font-weight: 500;
+    margin-top: var(--size-10);
+    margin-bottom: var(--size-4);
+    color: rgba(26,26,26,0.8);
+
+    @include tablet {
+      font-size: var(--size-6) !important;
+      line-height: var(--size-6) !important;
+    }
+  }
+
+  img {
+    width: 100%;
+    border-radius: var(--size-5);
+    margin: calc(var(--size-7) + 2px) 0;
+  }
+
+  ul {
+    list-style: disc;
+    margin-left: var(--size-6);
+    margin-bottom: var(--sze-3);
+    color: #6b7280;
+    font-size: var(--font-size-4);
+    line-height: 1.8;
+  }
+
+  li {
+    margin-bottom: var(--size-3);
+  }
+
+  strong {
+    color: #47413c;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,85 @@
+.profilePurchasesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--size-4);
+
+    .title {
+      font-size: var(--font-size-5);
+      font-weight: 700;
+      letter-spacing: -0.6px;
+    }
+
+    .browseButton {
+      color: var(--primary-color);
+      font-size: var(--font-size-2);
+
+      .icon {
+        width: var(--size-3);
+        height: var(--size-3);
+        margin-left: var(--size-1);
+      }
+    }
+  }
+
+  .purchasesList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .ordersList {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--size-5);
+    }
+  }
+
+
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--size-10) 0;
+    text-align: center;
+
+    .icon {
+      opacity: 0.5;
+
+      svg {
+        width: var(--size-12);
+        height: var(--size-12);
+      }
+    }
+
+    h3 {
+      font-size: var(--font-size-4);
+      font-weight: 700;
+      letter-spacing: -0.45px;
+    }
+
+    p {
+      color: var(--gray-color);
+      font-size: var(--font-size-2);
+    }
+  }
+  @media (max-width: $breakpoint-desktop) {
+    .purchasesList {
+      .ordersList {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+  @media (max-width: $max-mobile-width) {
+    .purchasesList {
+      .ordersList {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+}

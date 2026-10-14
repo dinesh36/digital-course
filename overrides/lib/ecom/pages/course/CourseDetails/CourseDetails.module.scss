@@ -1,0 +1,53 @@
+$breakpoint-tablet: 1024px;
+
+.container{
+  @include pageMaxWidthContainer;
+  padding: 0 var(--size-4);
+}
+
+.courseDetailsWrapper {
+  background-color: var(--background-white-color);
+  .courseDetails {
+    position: relative;
+    padding-top: var(--size-5);
+    padding-bottom: var(--size-3);
+    gap: var(--size-12);
+    background: linear-gradient(90deg, rgba(59,130,246,0.05), rgba(236,72,153,0.05));
+
+    .courseContent{
+      padding-bottom: var(--size-8);
+      .gradientBackdrop {
+        inset: 0;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-12);
+
+        @media (min-width: $breakpoint-tablet) {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+
+  .documentSection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--size-12);
+    padding: var(--size-4);
+
+    @media (max-width: $breakpoint-tablet) {
+      grid-template-columns: 1fr;
+      gap: var(--size-8);
+      margin: var(--size-8) 0;
+    }
+  }
+
+  .relatedProductsSection{
+    margin-top: var(--size-8);
+    padding: 0;
+  }
+}

@@ -1,0 +1,31 @@
+.productPriceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+
+  &.detailPrice [data-testid='product-price'] {
+    font-size: var(--size-3);
+    font-weight: 700;
+  }
+
+  [data-testid='product-price'] {
+    font-size: var(--font-size-3);
+    font-weight: 700;
+    font-family: 'Outfit', 'sans-serif';
+    color: var(--primary-color);
+  }
+
+  [data-testid='product-regular-price'] {
+    font-size: var(--font-size-1) !important;
+    color: var(--muted-foreground);
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+
+  [data-testid='product-discount'] {
+    font-size: calc(var(--size-3) - 2px);
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+}

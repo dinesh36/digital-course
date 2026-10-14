@@ -1,0 +1,11 @@
+$breakpoint-tablet: 920px;
+
+.layoutContainer {
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-6);
+
+  @media (max-width: $breakpoint-tablet){
+    flex-direction: column;
+  }
+}
