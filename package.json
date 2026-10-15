@@ -24,7 +24,7 @@
     "html-react-parser": "^5.2.5",
     "konva": "^10.2.0",
     "lucide-react": "^0.577.0",
-    "mr-ecom-nextjs": "github:dinesh36/mr-ecom-nextjs#v1.123.25",
+    "serverless-ecom-nextjs": "github:dinesh36/serverless-ecom-nextjs#v1.123.25",
     "mr-ecom-ui": "github:dinesh36/mr-ecom-ui#v1.45.17",
     "next": "15.3.0",
     "pdf-lib": "^1.17.1",

@@ -13,8 +13,8 @@ const repos = [
     folder: 'ui',
   },
   {
-    name: 'mr-ecom-nextjs',
-    repo: 'git@github.com:dinesh36/mr-ecom-nextjs.git',
+    name: 'serverless-ecom-nextjs',
+    repo: 'git@github.com:dinesh36/serverless-ecom-nextjs.git',
     folder: 'ecom',
   },
 ];

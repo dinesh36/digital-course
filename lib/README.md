@@ -5,7 +5,7 @@ This is the frontend application for **Framevala**, built with Next.js (App Rout
 The project depends on three internal libraries:
 
 - `mr-ecom-ui`
-- `mr-ecom-nextjs`
+- `serverless-ecom-nextjs`
 
 Instead of relying on npm-installed copies inside `node_modules`, we use a controlled local bootstrap system.
 
@@ -13,7 +13,7 @@ The libraries are still defined in `package.json` using GitHub version tags. Exa
 
 ```json
 {
-  "mr-ecom-nextjs": "github:dinesh36/mr-ecom-nextjs#v1.25.0",
+  "serverless-ecom-nextjs": "github:dinesh36/serverless-ecom-nextjs#v1.25.0",
   "mr-ecom-ui": "github:dinesh36/mr-ecom-ui#v1.26.0",
 }
 ```
@@ -33,7 +33,7 @@ In `frontend/package.json`:
 
 ```json
 {
-  "mr-ecom-nextjs": "github:dinesh36/mr-ecom-nextjs#v1.25.0",
+  "serverless-ecom-nextjs": "github:dinesh36/serverless-ecom-nextjs#v1.25.0",
   "mr-ecom-ui": "github:dinesh36/mr-ecom-ui#v1.26.0",
 }
 ```
@@ -43,7 +43,7 @@ TypeScript path mappings in `tsconfig.json` are configured to resolve these libr
 ```json
 "paths": {
   "@mr-ecom-ui/*": ["./lib/mr-ecom-ui/dist/*"],
-  "@mr-ecom-nextjs/*": ["./lib/mr-ecom-nextjs/dist/*"]
+  "@serverless-ecom-nextjs/*": ["./lib/serverless-ecom-nextjs/dist/*"]
 }
 ```
 
@@ -72,6 +72,6 @@ This script will:
 
 - Create the `lib/` folder (if missing)
 - Clone `mr-ecom-ui`
-- Clone `mr-ecom-nextjs`
+- Clone `serverless-ecom-nextjs`
 - Checkout the exact version defined in `package.json` for each present dependency
 - Skip any repo entries that lack a corresponding dependency or tag (will warn)
