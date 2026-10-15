@@ -1,6 +1,6 @@
 {
   "name": "courses-ecom",
-  "version": "0.101.24",
+  "version": "0.101.25",
   "private": true,
   "scripts": {
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
