@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, CalendarIcon } from 'lucide-react';
 import { Typography } from '@/ui/components';
-import type { BlogPost } from '@/ecom/services/blog/blog.response.type';
+import type { BlogPost } from '@/ecom/types/blog';
 import styles from './BlogCard.module.scss';
 import { errorSrc } from '@/ecom/constants';
 import { UserIcon } from '@/ui/icons';

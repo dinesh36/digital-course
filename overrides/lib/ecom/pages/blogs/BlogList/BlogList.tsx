@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import BlogCard from '@/ecom/components/blogs/BlogCard/BlogCard';
 import { EmptyMessage, Loading, Typography } from '@/ui/components';
 import { getBlogPosts } from '@/ecom/services/blog/blog.service';
-import type { BlogPost } from '@/ecom/services/blog/blog.response.type';
+import type { BlogPost } from '@/ecom/types/blog';
 import styles from '@/ecom/pages/blogs/BlogList/BlogList.module.scss';
 import { Pagination } from '@/ecom/components/layout';
 

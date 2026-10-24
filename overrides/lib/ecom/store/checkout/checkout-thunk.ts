@@ -6,37 +6,6 @@ import { setPaymentMethodThunk, placeOrderThunk, placeRazorpayOrderThunk } from 
 import { clearCart } from '@/ecom/store/cart/cart-slice';
 import { CustomerAddress } from '@/ecom/types/account';
 import { CASH_ON_DELIVERY_PAYMENT_METHOD, RAZORPAY_PAYMENT_METHOD } from '@/ecom/constants';
-import { fetchPurchasedProducts } from '@/ecom/services/product/product-list/purchased-products.service';
-import { addAlertMessage } from '@/ecom/store/layout/layout-slice';
-
-const purchasedOrderErrorMessage = [
-  'One or more items in your cart have already been purchased.',
-  'Remove them before placing the order.',
-].join(' ');
-
-const validateCartItemsNotPurchased = async (state: RootState, dispatch: AppDispatch) => {
-  if (!state.auth.isUserLoggedIn) {
-    return;
-  }
-
-  const uniqueSkus = [...new Set(
-    state.cart.cartItems
-      .map((item) => item.sku?.trim())
-      .filter((sku): sku is string => Boolean(sku)),
-  )];
-
-  if (!uniqueSkus.length) {
-    return;
-  }
-
-  const purchasedProducts = await fetchPurchasedProducts(uniqueSkus);
-  const hasPurchasedProduct = purchasedProducts.some((item) => item.purchased);
-
-  if (hasPurchasedProduct) {
-    dispatch(addAlertMessage({ type: 'error', message: purchasedOrderErrorMessage }));
-    throw new Error(purchasedOrderErrorMessage);
-  }
-};
 
 const prepareCheckout = async (
   customerAddress: CustomerAddress,
@@ -51,7 +20,6 @@ const prepareCheckout = async (
   let addressToUse: CustomerAddress = customerAddress;
 
   if (isLoggedIn) {
-    await validateCartItemsNotPurchased(state, dispatch);
     if (isEdit && customerAddress.id) {
       addressToUse = await dispatch(updateCustomerAddressThunk({ ...customerAddress, id: customerAddress.id })).unwrap();
     } else {

@@ -5,6 +5,7 @@ import { Button, Loading, Typography } from '@/ui/components';
 import { Product, ProductReview } from '@/ecom/types/product';
 import { fetchProductReviews } from '@/ecom/services/product';
 import { ProductStarRating } from '@/ecom/components/product';
+import { getRelativeTime } from '@/ecom/utils/date';
 
 type ReviewListState = {
   items: ProductReview[], currentPage: number, totalPages: number, loadingMore: boolean
@@ -128,7 +129,7 @@ export function ProductReviewList({ product, refreshKey = 0, onLoaded }: {
           starRating,
           review.summary,
           review.text,
-          review.createdBefore,
+          getRelativeTime(review.createdAt),
           index,
         );
       })}

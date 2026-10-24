@@ -1,16 +1,10 @@
 import { getProducts } from '@/ecom/services/product/product.service';
-import { Product, PurchasedProductItem } from '@/ecom/types/product';
+import { Product } from '@/ecom/types/product';
 
 const normalizeSku = (sku?: string) => sku?.trim().toLowerCase() || '';
 
-// Which of these skus the signed-in customer bought, from the product API. For the products that do not come from it
-// (the wishlist and the cart are still Magento's) and the checkout check; the product API's own lists carry `isPurchased`.
-export async function fetchPurchasedProducts(skus: string[]): Promise<PurchasedProductItem[]> {
-  if (skus.length === 0) return [];
-  const { items } = await getProducts({ skus, includePurchased: true, showErrorToast: false });
-  return items.map((item) => ({ sku: item.sku, purchased: Boolean(item.isPurchased) }));
-}
-
+// For the products that do not come from the product API (the wishlist is still Magento's): `isPurchased` of the products
+// the API knows by these skus. The product API's own lists carry the flag already.
 export async function attachPurchasedStatusToProducts(
   products: Product[],
   isUserLoggedIn = false,
@@ -35,9 +29,8 @@ export async function attachPurchasedStatusToProducts(
   }
 
   try {
-    const purchasedBySku = new Map(
-      (await fetchPurchasedProducts(uniqueSkus)).map((item) => [normalizeSku(item.sku), item.purchased]),
-    );
+    const { items } = await getProducts({ skus: uniqueSkus, includePurchased: true, showErrorToast: false });
+    const purchasedBySku = new Map(items.map((item) => [normalizeSku(item.sku), Boolean(item.isPurchased)]));
 
     return normalizedProducts.map((product) => ({
       ...product,

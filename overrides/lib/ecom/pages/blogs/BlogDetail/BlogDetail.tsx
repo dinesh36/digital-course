@@ -14,7 +14,7 @@ import { BlogContent } from '@/ecom/components/blogs/BlogContent/BlogContent';
 import { ArrowLeftIcon } from '@/ui/icons';
 import BlogCard from '@/ecom/components/blogs/BlogCard/BlogCard';
 import { HorizontalScrollContainer } from '@/ui/layout';
-import type { BlogPost } from '@/ecom/services/blog/blog.response.type';
+import type { BlogPost } from '@/ecom/types/blog';
 import { getBlogSuggestions } from '@/ecom/services/blog/blog.service';
 
 export default function BlogDetail() {
