@@ -125,7 +125,7 @@ function MobileDrawer({ open, onClose, navigationData }: MobileDrawerProps) {
         if ('isHeading' in item && item.isHeading) {
           return (
             <Link
-              key={item.uid}
+              key={item.id}
               href={item.link}
               className={`${styles.heading} ${pathname === item.link ? styles.active : ''}`}
               onClick={onClose}
@@ -137,7 +137,7 @@ function MobileDrawer({ open, onClose, navigationData }: MobileDrawerProps) {
 
         return (
           <Link
-            key={item.uid}
+            key={item.id}
             href={item.link}
             className={`${styles.itemLink} ${pathname === item.link ? styles.active : ''}`}
             onClick={onClose}

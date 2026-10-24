@@ -47,7 +47,7 @@ export function Footer() {
     <div className={styles.social}>
       {socialLinks.map((item) => (
         <Link
-          key={item.uid}
+          key={item.id}
           href={item.link}
           target={item.openInNewTab ? '_blank' : undefined}
           aria-label={item.name}

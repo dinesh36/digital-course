@@ -1,35 +1,50 @@
 'use client';
 
 import { ArrowRight, ShoppingCartIcon } from 'lucide-react';
-import React, { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './Dashboard.module.scss';
 import { Button, Loading, Typography } from '@/ui/components';
 import { Pagination } from '@/ecom/components/layout';
-import useOrders from '@/ecom/pages/account/Order/OrderHistory/useOrders';
-import { CustomerOrder, CustomerOrderLineItem } from '@/ecom/types/account';
+import { PRODUCTS_PER_PAGE } from '@/ecom/constants';
+import { fetchProducts } from '@/ecom/services/product';
+import { Product } from '@/ecom/types/product';
 import ProductTile from '@/ecom/components/product/ProductTile/ProductTile';
 
-type OrderItem = CustomerOrderLineItem & CustomerOrder;
-type OrderItems = Array<OrderItem>;
-
+// The courses the customer bought: the product API with `isPurchased=true` (each course once, by the same rule as the
+// download link), paged like any product list.
 export default function Dashboard() {
-  const {
-    orders, isLoading, totalPages, currentPage,
-  } = useOrders();
   const router = useRouter();
-  const courseOrders: OrderItems = useMemo(() => {
-    const items: OrderItems = [];
-    orders.forEach((order) => {
-      order.items.forEach((item) => {
-        items.push({ ...item, ...order });
-      });
-    });
-    return items;
-  }, [orders]);
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams?.get('page')) || 1;
+  const [courses, setCourses] = useState<Product[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const renderPurchasedCourses = () => courseOrders.map((orderItem) => (
-    <ProductTile product={orderItem.product} orderItem={orderItem} isDashboardTile />
+  useEffect(() => {
+    const loadCourses = async () => {
+      setIsLoading(true);
+      try {
+        const { items, total_count: totalCount } = await fetchProducts({
+          isPurchased: true,
+          pageSize: PRODUCTS_PER_PAGE,
+          currentPage,
+          isUserLoggedIn: true,
+        });
+        setCourses(items);
+        setTotalPages(Math.ceil(totalCount / PRODUCTS_PER_PAGE));
+      } catch {
+        setCourses([]);
+        setTotalPages(0);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadCourses();
+  }, [currentPage]);
+
+  const renderPurchasedCourses = () => courses.map((product) => (
+    <ProductTile key={product.sku} product={product} isDashboardTile />
   ));
 
   const renderHeader = () => (
@@ -56,7 +71,7 @@ export default function Dashboard() {
     </div>
   );
 
-  const renderPagination = () => !isLoading && orders.length > 0 && totalPages > 1 && (
+  const renderPagination = () => !isLoading && courses.length > 0 && totalPages > 1 && (
     <Pagination currentPage={currentPage} totalPages={totalPages} syncWithQuery className="mt-4" />
   );
 
@@ -64,7 +79,7 @@ export default function Dashboard() {
     <div className={styles.profilePurchasesContainer}>
       {renderHeader()}
       {isLoading && <Loading message="Loading your courses..." />}
-      {!isLoading && (courseOrders.length > 0 ? renderMyCourse() : renderEmptyState())}
+      {!isLoading && (courses.length > 0 ? renderMyCourse() : renderEmptyState())}
       {renderPagination()}
     </div>
   );

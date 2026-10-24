@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
 import parse from 'html-react-parser';
 import ProductListSidebar from '@/ecom/components/product/ProductList/ProductListSidebar/ProductListSidebar';
 import { DropDownIcon, FilterIcon } from '@/ui/icons';
-import { productListDropDownOptions } from '@/ecom/constants';
+import { FILTER_GROUP_CATEGORIES_QUERY_PARAM, productListDropDownOptions } from '@/ecom/constants';
 import { setProductSortBy } from '@/ecom/store/product/product-list-slice';
+import { parseFilteredCategories } from '@/ecom/utils';
 import { RootState } from '@/ecom/store';
 import styles from './CoursesList.module.scss';
 import ProductGrid from '@/ecom/components/product/ProductGrid/ProductGrid';
@@ -16,7 +18,15 @@ import { Typography } from '@/ui/components';
 export default function CoursesList() {
   const dispatch = useDispatch();
   const [isSliderOpen, setSliderOpen] = React.useState(false);
-  const { sortBy, activeProductCategory } = useSelector((state: RootState) => state.productList);
+  const searchParams = useSearchParams();
+  const { sortBy } = useSelector((state: RootState) => state.productList);
+  const allCategories = useSelector((state: RootState) => state.layout.categories.allCategories);
+
+  // The title, description and banner are those of the category when the list is filtered by that one category
+  const activeProductCategory = React.useMemo(() => {
+    const filtered = parseFilteredCategories(searchParams?.get(FILTER_GROUP_CATEGORIES_QUERY_PARAM));
+    return filtered.length === 1 ? allCategories.find(({ urlKey }) => urlKey === filtered[0]) : undefined;
+  }, [searchParams, allCategories]);
 
   React.useEffect(() => {
     document.body.style.overflow = isSliderOpen ? 'hidden' : '';

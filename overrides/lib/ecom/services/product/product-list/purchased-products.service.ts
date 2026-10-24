@@ -1,20 +1,14 @@
-import graphqlService from '@/ecom/services/graphql-service';
-import getPurchasedProductsQuery from '@/ecom/services/product/product-list/purchased-products.graphql';
+import { getProducts } from '@/ecom/services/product/product.service';
 import { Product, PurchasedProductItem } from '@/ecom/types/product';
-
-type PurchasedProductsResponse = {
-  purchasedProducts: PurchasedProductItem[];
-};
 
 const normalizeSku = (sku?: string) => sku?.trim().toLowerCase() || '';
 
+// Which of these skus the signed-in customer bought, from the product API. For the products that do not come from it
+// (the wishlist and the cart are still Magento's) and the checkout check; the product API's own lists carry `isPurchased`.
 export async function fetchPurchasedProducts(skus: string[]): Promise<PurchasedProductItem[]> {
-  const { purchasedProducts } = await graphqlService<PurchasedProductsResponse>({
-    query: getPurchasedProductsQuery,
-    variables: { skus },
-  });
-
-  return purchasedProducts || [];
+  if (skus.length === 0) return [];
+  const { items } = await getProducts({ skus, includePurchased: true, showErrorToast: false });
+  return items.map((item) => ({ sku: item.sku, purchased: Boolean(item.isPurchased) }));
 }
 
 export async function attachPurchasedStatusToProducts(
@@ -41,10 +35,8 @@ export async function attachPurchasedStatusToProducts(
   }
 
   try {
-    const purchasedProducts = await fetchPurchasedProducts(uniqueSkus);
-
     const purchasedBySku = new Map(
-      purchasedProducts.map((item) => [normalizeSku(item.sku), Boolean(item.purchased)]),
+      (await fetchPurchasedProducts(uniqueSkus)).map((item) => [normalizeSku(item.sku), item.purchased]),
     );
 
     return normalizedProducts.map((product) => ({

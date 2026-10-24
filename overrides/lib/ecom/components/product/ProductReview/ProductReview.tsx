@@ -16,7 +16,47 @@ interface ProductReviewProps {
 export function ProductReview({ product, showForm, onToggleForm }: ProductReviewProps) {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  const totalReviews = product.totalReviews ?? 0;
+  // The rating and the number of reviews of the product; they change when a review is added.
+  const [summary, setSummary] = useState({ averageRating: product.ratingSummary ?? 0, totalReviews: product.totalReviews ?? 0 });
+  const [refreshKey, setRefreshKey] = useState(0);
+  const { totalReviews } = summary;
+
+  useEffect(() => {
+    setSummary({ averageRating: product.ratingSummary ?? 0, totalReviews: product.totalReviews ?? 0 });
+  }, [product.productId]);
+
+  // The page moves when the form closes and the block changes height: after a review, go to the top of the review block.
+  // eslint-disable-next-line no-undef
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const scrollPending = useRef(false);
+  const scrollToSection = () => sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // The list loads when it comes into view; one the customer just created (the first review) is shown at once.
+  const [loadWhenVisible, setLoadWhenVisible] = useState(!!product.totalReviews);
+
+  useEffect(() => {
+    setLoadWhenVisible(!!product.totalReviews);
+  }, [product.productId]);
+
+  // The list loads itself again (once) and reports the new rating. The first review is the whole rating, so it is shown now.
+  const onReviewSubmitted = ({ rating }: { rating: number }) => {
+    setShowReviewForm(false);
+    setSummary((prev) => (prev.totalReviews ? prev : { averageRating: rating, totalReviews: 1 }));
+    setRefreshKey((prev) => prev + 1);
+    scrollPending.current = true;
+    setTimeout(scrollToSection, 0);
+  };
+
+  // Once the list has loaded the block has its final height: go to its top again.
+  const onReviewsLoaded = (freshSummary: { averageRating: number, totalReviews: number }) => {
+    setSummary(freshSummary);
+    if (scrollPending.current) {
+      scrollPending.current = false;
+      scrollToSection();
+    }
+  };
+
+  const ListContainer = loadWhenVisible ? VisibleOnScroll : React.Fragment;
   // eslint-disable-next-line no-undef
   const formRef = useRef<HTMLDivElement | null>(null);
 
@@ -47,7 +87,11 @@ export function ProductReview({ product, showForm, onToggleForm }: ProductReview
 
       {showReviewForm && (
         <div ref={formRef} className={styles.reviewFormContainer}>
-          <ProductReviewForm onCancel={() => setShowReviewForm((prev) => !prev)} sku={product.sku} />
+          <ProductReviewForm
+            onCancel={() => setShowReviewForm((prev) => !prev)}
+            productId={product.productId}
+            onSubmitted={onReviewSubmitted}
+          />
         </div>
       )}
     </div>
@@ -55,9 +99,9 @@ export function ProductReview({ product, showForm, onToggleForm }: ProductReview
 
   const renderRatingSummary = () => (
     <div className={styles.ratingSummary}>
-      <Typography variant="h2" component="h2">{product.ratingSummary?.toFixed(1)}</Typography>
+      <Typography variant="h2" component="h2">{summary.averageRating.toFixed(1)}</Typography>
       <div className={styles.starSummary}>
-        <ProductStarRating value={product.ratingSummary} size={20} />
+        <ProductStarRating value={summary.averageRating} size={20} />
       </div>
       <span className={styles.reviewCount}>
         (
@@ -80,20 +124,25 @@ export function ProductReview({ product, showForm, onToggleForm }: ProductReview
 
   const renderReviewList = () => (
     <div className={styles.reviewListContainer}>
-      <VisibleOnScroll>
+      <ListContainer>
         {renderReviewTitle()}
         {showReviewForm && (
           <div ref={formRef} className={styles.reviewFormContainer}>
-            <ProductReviewForm onCancel={() => setShowReviewForm((prev) => !prev)} sku={product.sku} />
+            <ProductReviewForm
+              onCancel={() => setShowReviewForm((prev) => !prev)}
+              productId={product.productId}
+              onSubmitted={onReviewSubmitted}
+            />
           </div>
         )}
-        <ProductReviewList product={product} />
-      </VisibleOnScroll>
+        <ProductReviewList product={product} refreshKey={refreshKey} onLoaded={onReviewsLoaded} />
+      </ListContainer>
     </div>
   );
 
   return (
-    <div>
+    // The navbar is fixed: keep the top of the block below it.
+    <div ref={sectionRef} style={{ scrollMarginTop: '88px' }}>
       {totalReviews ? renderReviewList() : renderReviewCart()}
     </div>
   );

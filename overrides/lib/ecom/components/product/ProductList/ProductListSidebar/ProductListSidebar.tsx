@@ -57,12 +57,8 @@ export default function ProductListSidebar({ isSliderOpen, setSliderOpen }: {
   const renderFilterSections = () => (
     <div className={styles.filterSections}>
       <CategoryCheckboxFilter categoryName="Levels" title="Levels" />
-      {pathname === '/courses' && (
-        <>
-          <div className={styles.divider} />
-          <CategoryCheckboxFilter categoryName="Courses Group" title="Courses Group" />
-        </>
-      )}
+      <div className={styles.divider} />
+      <CategoryCheckboxFilter categoryName="Courses Group" title="Courses Group" />
     </div>
   );
 

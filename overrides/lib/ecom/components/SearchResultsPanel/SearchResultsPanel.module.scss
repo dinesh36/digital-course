@@ -41,19 +41,14 @@
 
   .productList {
     display: flex;
-    height: calc(var(--size-5) * 19);
+    // The course card is taller than the frame card this height was set for: grow with it
+    min-height: calc(var(--size-5) * 19);
 
     .productCard {
-      min-width: calc(var(--size-16) * 4);
+      // The width of the course tile (its minimum), so the tile neither overflows the card nor stretches
       flex: 0 0 auto;
-      width: calc(var(--size-10) * 4);
-      text-align: center;
+      width: 260px;
       background: var(--background-white-color);
-      padding: var(--size-1);
-
-      @media (max-width: $breakpoint-small-mobile) {
-        width: calc(var(--size-10) * 3);
-      }
     }
   }
 

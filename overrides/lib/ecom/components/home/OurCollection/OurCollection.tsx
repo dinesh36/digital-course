@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import styles from './OurCollection.module.scss';
 import { Button, Typography } from '@/ui/components';
 import { Link } from '@/ecom/components/layout';
+import { getCategoryLink } from '@/ecom/utils/categoryUtils';
 
 type Category = {
     name: string;
@@ -62,7 +63,7 @@ function OurCollection() {
         <div className={styles.iconWrap}>
           <Icon className={styles.icon} />
         </div>
-        <Link className={styles.cardContent} href={`/collections/${encodeURIComponent(category.urlKey)}`}>
+        <Link className={styles.cardContent} href={getCategoryLink(category.urlKey)}>
           <Typography variant="h2" className={styles.cardHeader}>{category.name}</Typography>
         </Link>
       </div>

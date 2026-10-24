@@ -8,6 +8,7 @@ import ProductTileSkeleton from '@/ecom/components/product/ProductTile/ProductTi
 import { HorizontalScrollContainer } from '@/ui/layout';
 import { CacheOptions } from '@/ecom/services/api-cache';
 import { useAppSelector } from '@/ecom/store/hooks';
+import { getCategoryLink } from '@/ecom/utils/categoryUtils';
 
 const MAX_CATEGORY_PRODUCTS = 8;
 
@@ -69,7 +70,7 @@ export default function CategoryProducts({
         <Button
           variant="outlined"
           color="black"
-          href={categoryUrlKey ? `/collections/${categoryUrlKey}` : '#'}
+          href={categoryUrlKey ? getCategoryLink(categoryUrlKey) : '/courses'}
         >
           VIEW ALL
         </Button>

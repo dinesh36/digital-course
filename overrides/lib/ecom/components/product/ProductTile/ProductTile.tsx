@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Download, Star } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { Link } from '@/ecom/components/layout';
 import styles from './ProductTile.module.scss';
 import { Product } from '@/ecom/types/product';
@@ -12,7 +13,7 @@ import { Button, Typography } from '@/ui/components';
 import { CustomerOrder, CustomerOrderLineItem } from '@/ecom/types/account';
 import { formatOrderDate, getDisplayPrice } from '@/ecom/utils';
 import { useProductDownload } from '@/ecom/hooks/useProductDownload';
-import { findCategoryChildrenByName } from '@/ecom/utils/categoryUtils';
+import { findCategoryChildrenByName, getCategoryLink } from '@/ecom/utils/categoryUtils';
 import { useAppSelector } from '@/ecom/store/hooks';
 
 type OrderItem = CustomerOrderLineItem & CustomerOrder;
@@ -45,19 +46,36 @@ export default function ProductTile({
     [allCategories.data],
   );
 
-  const categoryBadgeText = React.useMemo(() => {
+  const router = useRouter();
+  const badgeCategory = React.useMemo(() => {
     const courseCategories = findCategoryChildrenByName(allCategories.data, 'Courses Group') ?? [];
-    return courseCategories.find((cat) => productCategories?.find((pc) => pc.uid === cat.uid))?.name || '';
+    return courseCategories.find((cat) => productCategories?.find((pc) => pc.id === cat.id));
   }, [productCategories, coursesGroupChildren]);
+  const categoryBadgeText = badgeCategory?.name || '';
+
+  // The tile is itself a link, so the badge is not an anchor: it opens the category's course list instead of the course
+  const openBadgeCategory = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (badgeCategory) router.push(getCategoryLink(badgeCategory.urlKey));
+  };
 
   const renderMedia = () => (
     <div className={styles.media}>
       <div className={styles.mediaInner}>
         <ProductImage src={thumbnailImage?.url} alt={thumbnailImage?.alt || name} className={styles.image} />
       </div>
-      <div className={styles.categoryBadge} aria-hidden>
-        {categoryBadgeText}
-      </div>
+      {badgeCategory && (
+        <span
+          role="link"
+          tabIndex={0}
+          className={styles.categoryBadge}
+          onClick={openBadgeCategory}
+          onKeyDown={(e) => e.key === 'Enter' && openBadgeCategory(e)}
+        >
+          {categoryBadgeText}
+        </span>
+      )}
     </div>
   );
 
@@ -127,13 +145,13 @@ export default function ProductTile({
   const renderDashboardFooter = () => (
     <div className={styles.orderFooter}>
       <div className={styles.priceMeta}>
-        {getOrderAmount(orderItem?.price || 0, orderItem?.currency)}
-        <div>•</div>
-        <div
-          className={styles.purchasedOn}
-        >
-          {`Purchased on ${formatOrderDate(orderItem?.orderDate || '')}`}
-        </div>
+        {orderItem ? getOrderAmount(orderItem.price, orderItem.currency) : getOrderAmount(product.price, product.currency)}
+        {orderItem?.orderDate && (
+          <>
+            <div>•</div>
+            <div className={styles.purchasedOn}>{`Purchased on ${formatOrderDate(orderItem.orderDate)}`}</div>
+          </>
+        )}
       </div>
       {renderFooterActions()}
     </div>

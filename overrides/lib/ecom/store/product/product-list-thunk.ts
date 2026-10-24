@@ -29,7 +29,7 @@ export const fetchProductsThunk = createAsyncThunk(
       auth: { isUserLoggedIn },
     }: RootState = thunkAPI.getState() as RootState;
 
-    const categoryUidGroups = Object.values(selectedCategoryGroups)
+    const categoryUrlKeyGroups = Object.values(selectedCategoryGroups)
       .filter((group) => group.length > 0);
 
     dispatch(setIsFetchingProducts(true));
@@ -39,10 +39,10 @@ export const fetchProductsThunk = createAsyncThunk(
         pageSize: PRODUCTS_PER_PAGE,
         currentPage,
         categoryUrlKey: payload.categoryUrlKey,
-        categoryUids: selectedCategories,
+        categoryUrlKeys: selectedCategories,
         sortBy,
         isUserLoggedIn,
-        categoryUidGroups,
+        categoryUrlKeyGroups,
       });
 
       dispatch(setTotalProductCount(totalCount));

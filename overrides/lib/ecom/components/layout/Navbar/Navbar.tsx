@@ -63,7 +63,7 @@ export function Navbar() {
 
   const renderLinks = (className: string, closeMenu?: () => void) => headerMenuItems.map((link) => (
     <Link
-      key={link.uid}
+      key={link.id}
       href={link.link}
       className={`${className} ${isActiveLink(link.link) ? styles.activeLink : ''}`}
       onClick={closeMenu}

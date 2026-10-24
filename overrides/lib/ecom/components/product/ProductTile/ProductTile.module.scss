@@ -105,6 +105,13 @@ $max-mobile-width: 768px;
         font-weight: 700;
         backdrop-filter: blur(var(--size-1));
         box-shadow: 0 var(--size-1) var(--size-2) rgba(16,24,40,0.06);
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+          background: var(--white-color);
+          color: var(--primary-color);
+        }
       }
     }
 

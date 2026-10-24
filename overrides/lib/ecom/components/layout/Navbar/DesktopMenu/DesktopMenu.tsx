@@ -28,7 +28,7 @@ function DesktopMenu({
           onMouseLeave={closeMenus}
         >
           {cat.children?.map((item) => (
-            <Link key={item.uid} href={item.link} className={styles.dropdownItem}>
+            <Link key={item.id} href={item.link} className={styles.dropdownItem}>
               {item.name}
             </Link>
           ))}

@@ -32,13 +32,13 @@ export function CartItem({ item, forceMobileView, onEditItem }: Props) {
   const categoryBadgeText = React.useMemo(() => {
     if (!categories?.length) return '';
 
-    const uidSet = new Set(coursesGroupChildren.map((c) => c.uid));
+    const idSet = new Set(coursesGroupChildren.map((c) => c.id));
     const nameSet = new Set(coursesGroupChildren.map((c) => c.name?.toLowerCase()));
 
     const result = categories
       .filter(
-        (c: { uid: string; name: string; }) => c
-                    && ((c.uid && uidSet.has(c.uid)) || nameSet.has(c.name?.toLowerCase())),
+        (c: { id: string; name: string; }) => c
+                    && ((c.id && idSet.has(c.id)) || nameSet.has(c.name?.toLowerCase())),
       )
       .map((c) => c.name);
 
