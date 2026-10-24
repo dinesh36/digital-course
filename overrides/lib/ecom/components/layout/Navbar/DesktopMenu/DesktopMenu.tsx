@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import styles from './DesktopMenu.module.scss';
 import { ProductCategory } from '@/ecom/types/productCategory';
+import { getCategoryLink } from '@/ecom/utils/categoryUtils';
 
 interface DesktopMenuProps {
   navigationData: ProductCategory[];
@@ -28,7 +29,7 @@ function DesktopMenu({
           onMouseLeave={closeMenus}
         >
           {cat.children?.map((item) => (
-            <Link key={item.id} href={item.link} className={styles.dropdownItem}>
+            <Link key={item.id} href={getCategoryLink(item.urlKey)} className={styles.dropdownItem}>
               {item.name}
             </Link>
           ))}
@@ -66,7 +67,7 @@ function DesktopMenu({
           <ul className={styles.list}>
             {sub.children?.map((item) => (
               <li key={item.name}>
-                <Link href={item.link} className={styles.link}>
+                <Link href={getCategoryLink(item.urlKey)} className={styles.link}>
                   {item.name}
                 </Link>
               </li>
@@ -91,7 +92,7 @@ function DesktopMenu({
 
     return (
       <div className={styles.featured}>
-        <Link href={cat.link} className={styles.featuredLink}>
+        <Link href={getCategoryLink(cat.urlKey)} className={styles.featuredLink}>
           <div className={styles.featuredCard}>
             <img src={cat.image} alt={cat.name} className={styles.featuredImage} />
             <div className={styles.featuredOverlay} />

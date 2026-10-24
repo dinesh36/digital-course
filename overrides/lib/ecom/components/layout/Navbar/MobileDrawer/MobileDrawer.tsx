@@ -11,6 +11,7 @@ import { Button } from '@/ui/components';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { openAuthModal } from '@/ecom/store/layout/layout-slice';
 import { logoutThunk } from '@/ecom/store/auth/auth-thunk';
+import { getCategoryLink } from '@/ecom/utils/categoryUtils';
 
 interface MobileDrawerProps {
   open: boolean;
@@ -126,8 +127,8 @@ function MobileDrawer({ open, onClose, navigationData }: MobileDrawerProps) {
           return (
             <Link
               key={item.id}
-              href={item.link}
-              className={`${styles.heading} ${pathname === item.link ? styles.active : ''}`}
+              href={getCategoryLink(item.urlKey)}
+              className={`${styles.heading} ${pathname === getCategoryLink(item.urlKey) ? styles.active : ''}`}
               onClick={onClose}
             >
               {item.name}
@@ -138,8 +139,8 @@ function MobileDrawer({ open, onClose, navigationData }: MobileDrawerProps) {
         return (
           <Link
             key={item.id}
-            href={item.link}
-            className={`${styles.itemLink} ${pathname === item.link ? styles.active : ''}`}
+            href={getCategoryLink(item.urlKey)}
+            className={`${styles.itemLink} ${pathname === getCategoryLink(item.urlKey) ? styles.active : ''}`}
             onClick={onClose}
           >
             {item.name}
