@@ -29,7 +29,7 @@ export async function attachPurchasedStatusToProducts(
   }
 
   try {
-    const { items } = await getProducts({ skus: uniqueSkus, includePurchased: true, showErrorToast: false });
+    const { items } = await getProducts({ skus: uniqueSkus, includePurchasedFlag: true, showErrorToast: false });
     const purchasedBySku = new Map(items.map((item) => [normalizeSku(item.sku), Boolean(item.isPurchased)]));
 
     return normalizedProducts.map((product) => ({

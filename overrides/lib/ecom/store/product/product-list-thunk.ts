@@ -26,7 +26,6 @@ export const fetchProductsThunk = createAsyncThunk(
         sortBy,
         filter: { selectedCategories, selectedCategoryGroups },
       },
-      auth: { isUserLoggedIn },
     }: RootState = thunkAPI.getState() as RootState;
 
     const categoryUrlKeyGroups = Object.values(selectedCategoryGroups)
@@ -41,7 +40,6 @@ export const fetchProductsThunk = createAsyncThunk(
         categoryUrlKey: payload.categoryUrlKey,
         categoryUrlKeys: selectedCategories,
         sortBy,
-        isUserLoggedIn,
         categoryUrlKeyGroups,
       });
 

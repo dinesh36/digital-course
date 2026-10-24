@@ -45,7 +45,6 @@ export default function CategoryProducts({
         pageSize: MAX_CATEGORY_PRODUCTS,
         showErrorToast: false,
         cache,
-        isUserLoggedIn,
       });
       setProducts(items);
     } catch {

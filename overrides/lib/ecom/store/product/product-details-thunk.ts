@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchProducts } from '@/ecom/services/product';
 import { setApiState, setProductData } from '@/ecom/store/product/product-details-slice';
-import { RootState } from '@/ecom/store';
 import { getProductWithAttributes } from '@/ecom/utils';
 import { ApiState } from '@/ecom/types/common';
 
@@ -15,13 +14,9 @@ export const fetchProductByUrlKey = createAsyncThunk(
     thunkAPI,
   ) => {
     const { dispatch } = thunkAPI;
-    const {
-      auth: { isUserLoggedIn },
-    }: RootState = thunkAPI.getState() as RootState;
-
     dispatch(setApiState(ApiState.Loading));
     try {
-      const resp = await fetchProducts({ urlKey, isUserLoggedIn });
+      const resp = await fetchProducts({ urlKey });
       const [productData] = resp?.items || [];
 
       dispatch(setApiState(ApiState.Success));

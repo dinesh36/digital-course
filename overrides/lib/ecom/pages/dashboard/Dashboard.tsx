@@ -7,12 +7,12 @@ import styles from './Dashboard.module.scss';
 import { Button, Loading, Typography } from '@/ui/components';
 import { Pagination } from '@/ecom/components/layout';
 import { PRODUCTS_PER_PAGE } from '@/ecom/constants';
-import { fetchProducts } from '@/ecom/services/product';
+import { getPurchasedProducts } from '@/ecom/services/product';
 import { Product } from '@/ecom/types/product';
 import ProductTile from '@/ecom/components/product/ProductTile/ProductTile';
 
-// The courses the customer bought: the product API with `isPurchased=true` (each course once, by the same rule as the
-// download link), paged like any product list.
+// The courses the customer bought: `GET /products/purchased` (each course once, the newest purchase first, by the same
+// rule as the download link), paged.
 export default function Dashboard() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -25,11 +25,9 @@ export default function Dashboard() {
     const loadCourses = async () => {
       setIsLoading(true);
       try {
-        const { items, total_count: totalCount } = await fetchProducts({
-          isPurchased: true,
+        const { items, total_count: totalCount } = await getPurchasedProducts({
           pageSize: PRODUCTS_PER_PAGE,
           currentPage,
-          isUserLoggedIn: true,
         });
         setCourses(items);
         setTotalPages(Math.ceil(totalCount / PRODUCTS_PER_PAGE));

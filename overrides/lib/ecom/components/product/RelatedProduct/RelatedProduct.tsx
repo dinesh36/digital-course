@@ -21,7 +21,7 @@ export function RelatedProduct({ sku }: RelatedProductProps) {
   const isUserLoggedIn = useAppSelector((state) => state.auth.isUserLoggedIn);
 
   const fetchRelatedProducts = async (relatedProductsSku: string) => {
-    const product = await getRelatedProductsList(relatedProductsSku, isUserLoggedIn);
+    const product = await getRelatedProductsList(relatedProductsSku);
     if (product) {
       setSections(
         [

@@ -37,7 +37,6 @@ export function SearchResultsPanel({ searchText, onClose }: Props) {
           search: debouncedSearch,
           pageSize: 8,
           currentPage: 1,
-          isUserLoggedIn,
         });
         const items = res.items as Product[];
         setResults(items);
