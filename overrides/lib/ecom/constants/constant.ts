@@ -25,7 +25,6 @@ export const breadCrumbItems: Record<string, BreadcrumbItem[]> = {
   '/wishlist': [{ label: 'Wishlist' }],
   '/policies/privacy-policy': [{ label: 'Privacy Policy' }],
   '/policies/refund-policy': [{ label: 'Refund Policy' }],
-  '/policies/shipping-policy': [{ label: 'Shipping Policy' }],
   '/policies/terms-of-service': [{ label: 'Terms of service' }],
   '/account': [{ label: 'My Account' }],
   '/account/addresses': [{ label: 'My Account', link: '/account' }, { label: 'Addresses' }],
