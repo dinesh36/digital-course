@@ -15,7 +15,7 @@ export default function ProfileDetails() {
   const { user } = useAppSelector((state) => state.auth);
   const [isLoading, setIsLoading] = React.useState(false);
   const form = useForm<User>({
-    defaultValues: { firstname: user?.firstname ?? '', lastname: user?.lastname ?? '', email: user?.email ?? '' },
+    defaultValues: { firstName: user?.firstName ?? '', lastName: user?.lastName ?? '', email: user?.email ?? '' },
   });
 
   React.useEffect(() => {

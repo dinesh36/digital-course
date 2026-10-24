@@ -26,7 +26,7 @@ export function Navbar() {
   const headerMenuItems = useAppSelector((state) => state.layout.menus.headerMenu) || [];
   const { isUserLoggedIn, user } = useAppSelector((state) => state.auth);
   const { cartItemsCount, displayCount } = useCartDisplayCount();
-  const userFirstName = user?.firstname?.trim() || 'Account';
+  const userFirstName = user?.firstName?.trim() || 'Account';
 
   const handleCartClick = () => {
     if (pathname !== '/cart' && !isMobile) {
