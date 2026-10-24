@@ -4,16 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import BlogCard from '@/ecom/components/blogs/BlogCard/BlogCard';
 import { EmptyMessage, Loading, Typography } from '@/ui/components';
-import { getMagePlazaBlogPosts } from '@/ecom/services/blog/blog.service';
+import { getBlogPosts } from '@/ecom/services/blog/blog.service';
 import type { BlogPost } from '@/ecom/services/blog/blog.response.type';
 import styles from '@/ecom/pages/blogs/BlogList/BlogList.module.scss';
-import { POSTS_PER_PAGE } from '@/ecom/constants';
 import { Pagination } from '@/ecom/components/layout';
 
 function BlogList() {
   const searchParams = useSearchParams();
   const pageParam = searchParams?.get('page');
-  const currentPage = pageParam ? parseInt(pageParam, POSTS_PER_PAGE) : 1;
+  const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
 
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -24,10 +23,10 @@ function BlogList() {
     (async () => {
       setIsLoading(true);
       try {
-        const { blogPosts: fetchedPosts, totalPages: fetchedTotalPages } = await getMagePlazaBlogPosts({ currentPage });
+        const { items: fetchedPosts, pageInfo } = await getBlogPosts({ page: currentPage });
         if (!mounted) return;
         setPosts(fetchedPosts);
-        setTotalPages(fetchedTotalPages);
+        setTotalPages(pageInfo.totalPages);
       } finally {
         if (mounted) setIsLoading(false);
       }
@@ -39,7 +38,7 @@ function BlogList() {
     <>
       <div className={styles.blogGrid}>
         {posts.map((post) => (
-          <BlogCard key={post.postId} post={post} />
+          <BlogCard key={post.id} post={post} />
         ))}
       </div>
       {totalPages > 1 && (

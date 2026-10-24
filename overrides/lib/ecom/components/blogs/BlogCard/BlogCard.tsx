@@ -15,9 +15,8 @@ type Props = {
 
 export default function BlogCard({ post }: Props) {
   const router = useRouter();
-  const detailSlug = post.urlKey ?? post.postId ?? (post as any).id;
-  const detailPath = detailSlug
-    ? `/blogs/${encodeURIComponent(String(detailSlug))}`
+  const detailPath = post.urlKey
+    ? `/blogs/${encodeURIComponent(post.urlKey)}`
     : '/blogs';
 
   const renderImage = () => (
@@ -59,7 +58,7 @@ export default function BlogCard({ post }: Props) {
   );
 
   const renderCategory = () => {
-    const category = post.tags?.[1]?.name || post.tags?.[0]?.name;
+    const category = post.tags?.[1] || post.tags?.[0];
     if (!category) return null;
     return (
       <div className={styles.category}>

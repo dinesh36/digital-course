@@ -61,11 +61,10 @@ $breakpoint-tablet: 1024px;
     height: var(--size-16);
 
     .logoImage {
-      height: 160px;
+      height: 36px;
       width: auto;
       object-fit: contain;
-      margin-top: calc(var(--size-4) + 2px);
-      margin-left: -12px;
+      margin-left: 10px;
     }
   }
 

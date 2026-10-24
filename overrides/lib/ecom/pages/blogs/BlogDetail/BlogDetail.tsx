@@ -25,16 +25,16 @@ export default function BlogDetail() {
   const dispatch = useAppDispatch();
   const blogData = useAppSelector((state) => state.blogDetails.data);
   const blogDetailApiState = useAppSelector((state) => state.blogDetails.apiState);
-  const tags = useMemo(() => blogData?.tags?.map((t) => t.name) || [], [blogData]);
+  const tags = useMemo(() => blogData?.tags || [], [blogData]);
   const blogDate = useMemo(() => (blogData?.createdAt
     ? new Date(blogData?.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : ''), [blogData]);
   const [suggestions, setSuggestions] = useState<BlogPost[]>([]);
 
   const readTimeMinutes = useMemo(() => {
-    if (!blogData?.postContent) return 0;
+    if (!blogData?.content) return 0;
     const wordsPerMinute = 200;
-    const text = blogData.postContent.replace(/<[^>]+>/g, '');
+    const text = blogData.content.replace(/<[^>]+>/g, '');
     const wordCount = text.trim().split(/\s+/).length;
     return Math.ceil(wordCount / wordsPerMinute);
   }, [blogData]);
@@ -75,7 +75,7 @@ export default function BlogDetail() {
         <div className={styles.scrollContainer}>
           <HorizontalScrollContainer>
             {suggestions.map((p) => (
-              <BlogCard key={p.postId ?? (p as any).id} post={p} />
+              <BlogCard key={p.id} post={p} />
             ))}
           </HorizontalScrollContainer>
         </div>
