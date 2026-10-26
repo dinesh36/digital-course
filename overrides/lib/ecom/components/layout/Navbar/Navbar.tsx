@@ -68,7 +68,7 @@ export function Navbar() {
       className={`${className} ${isActiveLink(link.link) ? styles.activeLink : ''}`}
       onClick={closeMenu}
     >
-      {link.name}
+      {link.title}
     </Link>
   ));
 

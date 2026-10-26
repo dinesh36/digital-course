@@ -10,7 +10,7 @@ import styles from '@/ecom/pages/layout/layout.module.scss';
 import { getCurrentPath } from '@/ecom/ssr-utils';
 import { setBreadCrumbWithPath, fetchSeoMetadataThunk } from '@/ecom/store/layout/layout-thunk';
 import { fetchDynamicPageData } from '@/ecom/store/layout/layout-thunk-ssr';
-import { fetchMenusThunk } from '@/ecom/store/layout/menu-thunk';
+import { fetchNavMenusThunk } from '@/ecom/store/layout/nav-menu-thunk';
 import { Navbar, Toaster } from '@/ecom/components/layout';
 import { isFullScreenLayout } from '@/ecom/pages/layout/layoutUtils';
 import { AppStore } from '@/ecom/pages/layout/AppStore';
@@ -23,7 +23,7 @@ export default async function LayoutContainer({ children }: { children: React.Re
 
   // load categories (server-side) and then snapshot the preloaded state
   await initStore.dispatch(fetchCategoriesThunk(currentPath));
-  await initStore.dispatch(fetchMenusThunk());
+  await initStore.dispatch(fetchNavMenusThunk());
 
   const headersList = await headers();
   const user = headersList.get('x-user') ? JSON.parse(headersList.get('x-user') as string) : null;

@@ -50,10 +50,10 @@ export function Footer() {
           key={item.id}
           href={item.link}
           target={item.openInNewTab ? '_blank' : undefined}
-          aria-label={item.name}
+          aria-label={item.title}
           rel={item.openInNewTab ? 'noreferrer' : undefined}
         >
-          {iconMap[item.name.toLowerCase() as keyof typeof iconMap]}
+          {iconMap[item.title.toLowerCase() as keyof typeof iconMap]}
         </Link>
       ))}
     </div>
@@ -76,14 +76,14 @@ export function Footer() {
   );
 
   const renderCategoryColumns = () => footerMenu.map((category) => (
-    <div key={category.name}>
-      <h4 className={styles.sectionHeading}>{category.name}</h4>
+    <div key={category.title}>
+      <h4 className={styles.sectionHeading}>{category.title}</h4>
 
       <ul>
         {category.children?.map((child) => (
-          <li key={`${category.name}-${child.link}`}>
+          <li key={`${category.title}-${child.link}`}>
             <Link href={child.link} className={styles.footerLink}>
-              {child.name}
+              {child.title}
             </Link>
           </li>
         ))}
@@ -138,7 +138,7 @@ export function Footer() {
       <div className={styles.bottomLinks}>
         {policyLinks.map((child) => (
           <Link key={child.link} href={child.link}>
-            {child.name}
+            {child.title}
           </Link>
         ))}
       </div>
