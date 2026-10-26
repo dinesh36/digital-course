@@ -12,7 +12,7 @@ import { SearchInputBox } from '@/ecom/components/SearchInputBox/SearchInputBox'
 import { openAuthModal, openCartSlider } from '@/ecom/store/layout/layout-slice';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { AuthModal } from '@/ecom/components/auth';
-import { useCartDisplayCount } from '@/ecom/components/layout';
+import { AnnouncementHeader, useCartDisplayCount } from '@/ecom/components/layout';
 import { CartIcon, UserIcon } from '@/ui/icons';
 import CartSlider from '@/ecom/components/cart/CartSlider/CartSlider';
 import { useIsMobile } from '@/ecom/utils';
@@ -135,6 +135,9 @@ export function Navbar() {
 
   return (
     <>
+      <div className={styles.announcement}>
+        <AnnouncementHeader />
+      </div>
       <nav className={styles.navbar} aria-label="Primary">
         <div className={styles.container}>
           <div className={styles.headerRow}>

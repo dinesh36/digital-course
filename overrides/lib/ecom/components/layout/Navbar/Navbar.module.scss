@@ -1,10 +1,24 @@
 $max-mobile-width: 768px;
 $breakpoint-tablet: 1024px;
 
+// The announcement bar sits above the navbar, which moves down by its height while the bar is shown.
+.announcement {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 51;
+}
+
 .navbar {
   position: fixed;
   left: 0;
   right: 0;
+  top: 0;
+
+  :global(body.with-announcement-header) & {
+    top: var(--announcement-header-height);
+  }
   z-index: 50;
   background-color: var(--background-white-color);
   backdrop-filter: blur(var(--size-3));

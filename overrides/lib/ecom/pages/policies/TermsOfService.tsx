@@ -3,6 +3,7 @@
 import { StaticPageContainer } from '@/ui/layout';
 import { useAppSelector } from '@/ecom/store/hooks';
 import { POLICY_CONTACT_EMAIL } from './contact';
+import { BRAND_NAME } from '@/ecom/constants';
 
 export default function TermsOfService() {
   const { pageSeoDetails } = useAppSelector((state) => state.layout);
@@ -12,8 +13,18 @@ export default function TermsOfService() {
       <p><span>Terms and conditions</span></p>
       <p>
         <span>
-          This website is operated by Digital Courses. Throughout the site, the terms “we”, “us” and “our”
-          refer to Digital Courses. Digital Courses offers this website, including all information, courses,
+          This website is operated by
+          {' '}
+          {BRAND_NAME}
+          . Throughout the site, the terms “we”, “us” and “our”
+          refer to
+          {' '}
+          {BRAND_NAME}
+          .
+          {' '}
+          {BRAND_NAME}
+          {' '}
+          offers this website, including all information, courses,
           tools, and services available from this site to you, the user, conditioned upon your
           acceptance of all terms, conditions, policies, and notices stated here.
         </span>
@@ -98,7 +109,9 @@ export default function TermsOfService() {
       <p><b>SECTION 3 – COURSES AND LICENSE</b></p>
       <p>
         <span>
-          Digital Courses sells digital courses. When you buy a course you get a personal, non-exclusive,
+          {BRAND_NAME}
+          {' '}
+          sells digital courses. When you buy a course you get a personal, non-exclusive,
           non-transferable license to download it and use it for your own learning.
         </span>
       </p>
@@ -108,7 +121,10 @@ export default function TermsOfService() {
           You agree not to reproduce, duplicate, copy, share, sell, resell, upload, or otherwise
           exploit a course or any part of it, or give anyone else access to your account or your
           download links, without our express written permission. The course remains the property of
-          Digital Courses and its authors.
+          {' '}
+          {BRAND_NAME}
+          {' '}
+          and its authors.
         </span>
       </p>
       <br />
@@ -286,7 +302,10 @@ export default function TermsOfService() {
       <br />
       <p>
         <span>
-          In no case shall Digital Courses, our directors, officers, employees, affiliates, agents,
+          In no case shall
+          {' '}
+          {BRAND_NAME}
+          , our directors, officers, employees, affiliates, agents,
           contractors, suppliers, service providers or licensors be liable for any injury, loss,
           claim, or any direct, indirect, incidental, punitive, special, or consequential damages of
           any kind, including, without limitation lost profits, lost revenue, lost savings, loss of
@@ -300,7 +319,11 @@ export default function TermsOfService() {
       <p><b>SECTION 12 – INDEMNIFICATION</b></p>
       <p>
         <span>
-          You agree to indemnify, defend and hold harmless Digital Courses and our parent, subsidiaries,
+          You agree to indemnify, defend and hold harmless
+          {' '}
+          {BRAND_NAME}
+          {' '}
+          and our parent, subsidiaries,
           affiliates, partners, officers, directors, agents, contractors, licensors, service
           providers, suppliers, and employees, from any claim or demand, including reasonable
           attorneys’ fees, made by any third-party due to or arising out of your breach of these

@@ -11,7 +11,7 @@ export default function CtaSection() {
 
           <h2>Ready to start your learning journey?</h2>
           <p>
-            Join thousands of students and start achieving your goals today with EduVerse&apos;s
+            Join thousands of students and start achieving your goals today with our
             premium courses.
           </p>
 

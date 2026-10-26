@@ -8,6 +8,7 @@ import { getBlogPosts } from '@/ecom/services/blog/blog.service';
 import type { BlogPost } from '@/ecom/types/blog';
 import styles from '@/ecom/pages/blogs/BlogList/BlogList.module.scss';
 import { Pagination } from '@/ecom/components/layout';
+import { BRAND_NAME } from '@/ecom/constants';
 
 function BlogList() {
   const searchParams = useSearchParams();
@@ -56,7 +57,7 @@ function BlogList() {
   const renderBlogHeader = () => (
     <div className={styles.blogHeader}>
       <Typography variant="h1" component="h1" className={styles.heading}>
-        EduVerse
+        {BRAND_NAME}
         {' '}
         <span className={styles.gradientText}>Insights</span>
       </Typography>

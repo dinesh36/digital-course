@@ -3,6 +3,7 @@
 import { StaticPageContainer } from '@/ui/layout';
 import { useAppSelector } from '@/ecom/store/hooks';
 import { POLICY_CONTACT_EMAIL } from './contact';
+import { BRAND_NAME } from '@/ecom/constants';
 
 export default function RefundPolicy() {
   const { pageSeoDetails } = useAppSelector((state) => state.layout);
@@ -12,7 +13,9 @@ export default function RefundPolicy() {
       <p><span>Refund Policy</span></p>
       <p>
         <span>
-          Digital Courses sells digital courses. Once you have paid, you can download your course
+          {BRAND_NAME}
+          {' '}
+          sells digital courses. Once you have paid, you can download your course
           from your account straight away, so nothing is shipped and there are no returns
           or replacements of physical goods.
         </span>

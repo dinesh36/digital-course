@@ -17,6 +17,7 @@ import type { LucideIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button, Typography } from '@/ui/components';
 import styles from './AboutUs.module.scss';
+import { BRAND_NAME } from '@/ecom/constants';
 
 type MethodologyPhase = {
   id: string;
@@ -107,7 +108,7 @@ function AboutUsPage() {
       <Typography variant="h1" component="h1" className={styles.title}>
         About
         {' '}
-        <span>EduVerse</span>
+        <span>{BRAND_NAME}</span>
       </Typography>
       <p className={styles.subtitle}>Empowering learners with premium, practical, and structured digital study resources.</p>
     </section>

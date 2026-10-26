@@ -15,6 +15,7 @@ import {
 } from '@/ui/icons';
 import { AppForm, FieldGroup, TextField } from '@/ui/form';
 import emailSubscribe from '@/ecom/services/subscription/subscribe.service';
+import { BRAND_NAME } from '@/ecom/constants';
 
 export const iconMap = {
   instagram: <InstagramIcon />,
@@ -132,7 +133,10 @@ export function Footer() {
   const renderBottomBar = () => (
     <div className={styles.bottomBar}>
       <span>
-        © 2026 EduVerse Inc. All rights reserved.
+        © 2026
+        {' '}
+        {BRAND_NAME}
+        . All rights reserved.
       </span>
 
       <div className={styles.bottomLinks}>
