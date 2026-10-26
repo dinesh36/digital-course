@@ -9,18 +9,17 @@ import { Button, Image } from '@/ui/components';
 import { removeCartItemThunk } from '@/ecom/store/cart/cart-thunk';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { ProductPrice } from '@/ecom/components/product';
-import { TrashIcon, EditIcon } from '@/ui/icons';
+import { TrashIcon } from '@/ui/icons';
 import OutOfStockBadge from '@/ecom/components/product/OutOfStockBadge/OutOfStockBadge';
 import { findCategoryChildrenByName } from '@/ecom/utils/categoryUtils';
 
-interface Props { item: ProductCartItem; forceMobileView?: boolean; onEditItem: (item: ProductCartItem) => void }
+interface Props { item: ProductCartItem; forceMobileView?: boolean }
 
-export function CartItem({ item, forceMobileView, onEditItem }: Props) {
+export function CartItem({ item, forceMobileView }: Props) {
   const dispatch = useAppDispatch();
   const isMobile = forceMobileView || useIsMobile();
   const isCompactView = isMobile || forceMobileView;
-  const options = item.attributes || [];
-  const href = `/products/${item.urlKey}${item.attributes ? `?attributes=${encodeURIComponent(JSON.stringify(options))}` : ''} `;
+  const href = `/products/${item.urlKey}`;
   const categories = item.categories || [];
   const allCategories = useAppSelector((state) => state.layout.categories);
 
@@ -53,12 +52,6 @@ export function CartItem({ item, forceMobileView, onEditItem }: Props) {
     </div>
   );
 
-  const renderEditButton = () => (
-    <Button variant="clear" className={styles.editIcon} onClick={() => onEditItem(item)}>
-      <EditIcon />
-    </Button>
-  );
-
   const renderRemoveButton = (showLabel = false) => (
     <Button
       type="button"
@@ -78,13 +71,6 @@ export function CartItem({ item, forceMobileView, onEditItem }: Props) {
         <Link href={`/courses/${item.urlKey}`}>{item.name}</Link>
         {!item.isInStock && <OutOfStockBadge className={styles.outOfStock} />}
       </div>
-      {options.map((option, index) => (
-        <p key={option.attributeLabel} className={index === 0 ? styles.optionWithEdit : ''}>
-          {` ${option.attributeLabel}: `}
-          <strong>{option.selectedAttributeLabel}</strong>
-          {index === 0 && (renderEditButton())}
-        </p>
-      ))}
     </div>
   );
 

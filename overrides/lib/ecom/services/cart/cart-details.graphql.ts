@@ -118,16 +118,6 @@ export const cartFields = `
   }
 `;
 
-export const addProductsToCartMutation = `
-  mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {
-    addProductsToCart(cartId: $cartId, cartItems: $cartItems) {
-      cart {
-        ${cartFields}
-      }
-    }
-  }
-`;
-
 export const setShippingAddressOnCartMutation = (isGuest: boolean) => `
   mutation ${isGuest ? 'SetGuestShippingAddress' : 'setShippingAddress'}
   ($cartId: String!, ${isGuest ? '$address: CartAddressInput!' : '$addressId: Int!'}) {
@@ -146,68 +136,9 @@ export const setShippingAddressOnCartMutation = (isGuest: boolean) => `
   }
 `;
 
-export const getCartByIdQuery = `
-  query GetCartWithId($cartId: String!) {
-    cart(cart_id: $cartId) {
-      ${cartFields}
-    }
-  }
-`;
-
-export const getCustomerCartQuery = `
-  query GetCustomerCart {
-    customerCart {
-      ${cartFields}
-    }
-  }
-`;
-
-export const setShippingMethodOnCartMutation = `
-  mutation SetShippingMethodOnCart($cartId: String!, $carrierCode: String!, $methodCode: String!) {
-    setShippingMethodsOnCart(
-      input: {
-        cart_id: $cartId
-        shipping_methods: [
-          {
-            carrier_code: $carrierCode
-            method_code: $methodCode
-          }
-        ]
-      }
-    ) {
-      cart {
-        ${cartFields}
-      }
-    }
-  }
-`;
-
-export const mergeCartsMutation = `
-  mutation mergeCarts($source_cart_id: String!, $destination_cart_id: String!) {
-    mergeCarts(source_cart_id: $source_cart_id, destination_cart_id: $destination_cart_id) {
-      ${cartFields}
-    }
-  }
-`;
-
 export const setGuestEmailOnCartMutation = `
   mutation setGuestEmailOnCart($cartId: String!, $email: String!) {
     setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
-      cart {
-        ${cartFields}
-      }
-    }
-  }
-`;
-
-export const setBillingAddressOnCartMutation = `
-  mutation SetBillingAddressOnCart($cartId: String!, $billingAddress: BillingAddressInput!) {
-    setBillingAddressOnCart(
-      input: {
-        cart_id: $cartId
-        billing_address: $billingAddress
-      }
-    ) {
       cart {
         ${cartFields}
       }
