@@ -5,7 +5,7 @@ import { pagingFields } from '@/ecom/constants';
 
 export {
   configurableOptionsFields, variantsFields,
-  getProductDiscount, priceFields,
+  priceFields,
   imageFields, minimalProductFields,
 } from '@/ecom-base/services/product/product-list/product-list.graphql';
 
