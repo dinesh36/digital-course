@@ -19,8 +19,7 @@ function NavbarActions() {
   const router = useRouter();
   const pathname = usePathname();
   const { cartItemsCount, displayCount } = useCartDisplayCount();
-  const { minimalWishlistItemsSet } = useAppSelector((state) => state.wishlist);
-  const wishlistCount = Object.keys(minimalWishlistItemsSet || {}).length;
+  const wishlistCount = useAppSelector((state) => state.wishlist.productIds.length);
 
   const handleUserClick = () => {
     if (isUserLoggedIn) {

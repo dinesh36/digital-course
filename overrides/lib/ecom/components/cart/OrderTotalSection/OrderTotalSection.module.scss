@@ -1,0 +1,66 @@
+.orderTotalSection {
+  margin-top: var(--size-4);
+  padding: var(--size-5);
+  background-color: var(--background-white-color);
+  border: 1px solid var(--border-color-light);
+  font-size: calc(var(--size-3) + 2px);
+  line-height: var(--size-5);
+  border-radius: calc(var(--size-2) + 2px);
+  width: 100%;
+
+  &.sliderViewSummary{
+    padding: 0;
+    background: transparent;
+    border: none;
+    .subTotal{
+      margin-bottom: var(--size-2);
+    }
+    .viewCartButton{
+      margin-top: var(--size-3);
+    }
+  }
+
+  p {
+    display: flex;
+    justify-content: space-between;
+    margin: var(--size-1) 0;
+    line-height: var(--size-6);
+  }
+
+  .label {
+    color: var(--muted-text-color);
+
+    .right {
+      color: black;
+      font-weight: bold;
+    }
+  }
+
+  .price {
+    font-weight: 700;
+  }
+
+  .taxes {
+    padding-left: var(--size-4);
+  }
+
+  .grandTotal {
+    margin-bottom: var(--size-3);
+    font-weight: 700;
+    &, .label {
+      color: var(--heading-text-color);
+    }
+    padding-top: var(--size-5);
+    margin-top: var(--size-5);
+    border-top: 1px solid var(--border-color-light-gray);
+  }
+
+  .checkoutButton, .viewCartButton {
+    width: 100%;
+  }
+
+  .viewCartButton {
+    margin-top: var(--size-4);
+    background: transparent;
+  }
+}

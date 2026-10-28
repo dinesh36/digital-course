@@ -10,18 +10,16 @@ import ProductImage from '@/ecom/components/ProductImage/ProductImage';
 import { ProductPrice, WishlistProductButton } from '@/ecom/components/product';
 import { AddToCartButton } from '@/ecom/components/product/AddToCartButton/AddToCartButton';
 import { Button, Typography } from '@/ui/components';
-import { CustomerOrder, CustomerOrderLineItem } from '@/ecom/types/account';
-import { formatOrderDate, getDisplayPrice } from '@/ecom/utils';
-import { useProductDownload } from '@/ecom/hooks/useProductDownload';
+import { getDisplayPrice } from '@/ecom/utils';
+import { useProductDownload } from '@/ecom/components/product/useProductDownload';
 import { findCategoryChildrenByName, getCategoryLink } from '@/ecom/utils/categoryUtils';
 import { useAppSelector } from '@/ecom/store/hooks';
+import { getProductPath } from '@/ecom/utils/pathUtils';
 
-type OrderItem = CustomerOrderLineItem & CustomerOrder;
 type ProductTileProps = {
     product: Product;
     isSearchTile?: boolean;
     isDashboardTile?: boolean;
-    orderItem?: OrderItem;
     onClick?: () => void;
 };
 
@@ -29,7 +27,6 @@ export default function ProductTile({
   product,
   isSearchTile,
   isDashboardTile,
-  orderItem,
   onClick,
 }: ProductTileProps) {
   const {
@@ -145,13 +142,7 @@ export default function ProductTile({
   const renderDashboardFooter = () => (
     <div className={styles.orderFooter}>
       <div className={styles.priceMeta}>
-        {orderItem ? getOrderAmount(orderItem.price, orderItem.currency) : getOrderAmount(product.price, product.currency)}
-        {orderItem?.orderDate && (
-          <>
-            <div>•</div>
-            <div className={styles.purchasedOn}>{`Purchased on ${formatOrderDate(orderItem.orderDate)}`}</div>
-          </>
-        )}
+        {getOrderAmount(product.price, product.currency)}
       </div>
       {renderFooterActions()}
     </div>
@@ -166,7 +157,7 @@ export default function ProductTile({
           className={`${styles.favoriteIconButton} ${styles.wishlistButton}`}
         />
         )}
-        <Link href={`/courses/${product.urlKey}`} onClick={onClick} className={styles.cardLink}>
+        <Link href={getProductPath(product.urlKey)} onClick={onClick} className={styles.cardLink}>
           <div className={styles.card}>
             {renderMedia()}
             <div className={styles.content}>

@@ -4,10 +4,10 @@ import React from 'react';
 import { CheckCircle2, Clock } from 'lucide-react';
 import { useAppSelector } from '@/ecom/store/hooks';
 import { getProductDisplayPrice, getDisplayPrice } from '@/ecom/utils/price';
-import styles from './ShippingOrderSummary.module.scss';
+import styles from './CheckoutOrderSummary.module.scss';
 import { Typography } from '@/ui/components';
 
-export function ShippingOrderSummary() {
+export function CheckoutOrderSummary() {
   const { cartItems, cartTotal } = useAppSelector((state) => state.cart);
 
   const finalAmount = cartTotal?.grandTotal ?? 0;
@@ -55,7 +55,7 @@ export function ShippingOrderSummary() {
 
       <div className={styles.subtotalRow}>
         <span className={styles.rowLabel}>Subtotal</span>
-        <span className={styles.rowValue}>{getDisplayPrice(cartTotal?.subTotal ?? 0)}</span>
+        <span className={styles.rowValue}>{getDisplayPrice(cartTotal?.subtotal ?? 0)}</span>
       </div>
       {cartTotal?.appliedTaxes?.length > 0 && (renderTaxSection())}
       {renderDiscountSection()}

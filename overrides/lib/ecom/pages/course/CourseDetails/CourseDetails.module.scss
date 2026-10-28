@@ -39,6 +39,18 @@ $breakpoint-tablet: 1024px;
     gap: var(--size-12);
     padding: var(--size-4);
 
+    @media (min-width: calc(#{$breakpoint-tablet} + 1px)) {
+      grid-template-rows: auto 1fr;
+      row-gap: 0;
+
+      .reviewsCell {
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
     @media (max-width: $breakpoint-tablet) {
       grid-template-columns: 1fr;
       gap: var(--size-8);

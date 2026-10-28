@@ -1,33 +1,17 @@
 'use client';
 
 import { ShoppingCartIcon } from 'lucide-react';
-import React, { useMemo } from 'react';
+import React from 'react';
 import styles from './ProfilePurchases.module.scss';
 import { Loading, Typography } from '@/ui/components';
 import { Pagination } from '@/ecom/components/layout';
-import { formatOrderDate } from '@/ecom/utils';
-import { CustomerOrder, CustomerOrderLineItem } from '@/ecom/types/account';
+import { formatOrderAmount, formatOrderDate } from '@/ecom/components/account/Order/OrdersDetails/utils';
 import useOrders from '@/ecom/pages/account/Order/OrderHistory/useOrders';
-
-type OrderItem = CustomerOrderLineItem & CustomerOrder;
-type OrderItems = Array<OrderItem>;
 
 export default function ProfilePurchases() {
   const {
     orders, isLoading, totalPages, currentPage,
   } = useOrders();
-
-  const orderItems: OrderItems = useMemo(() => {
-    const items: OrderItems = [];
-    orders.forEach((order) => {
-      order.items.forEach((item) => {
-        items.push({ ...item, ...order });
-      });
-    });
-    return items;
-  }, [orders]);
-
-  const getOrderAmount = (order: CustomerOrder) => order.grandTotal ?? 0;
 
   const renderHeader = () => (
     <div className={styles.header}>
@@ -41,22 +25,17 @@ export default function ProfilePurchases() {
       <th>Order Id</th>
       <th>Date</th>
       <th>Course/Material</th>
-      <th>Instructor</th>
       <th className={styles.right}>Amount</th>
     </tr>
   );
 
-  const renderTableContent = () => orderItems.map((orderItem) => (
-    <tr key={orderItem.orderNumber}>
-      <td>{orderItem.orderNumber}</td>
-      <td>{formatOrderDate(orderItem.orderDate)}</td>
-      <td>{orderItem.product.name}</td>
-      <td>{orderItem.product.documentAuthorName}</td>
-      <td>
-        {' '}
-        ₹
-        {getOrderAmount(orderItem).toLocaleString('en-IN')}
-      </td>
+  // One row per order: the courses in it and what was paid (the order total, with tax)
+  const renderTableContent = () => orders.map((order) => (
+    <tr key={order.id}>
+      <td>{order.orderNumber}</td>
+      <td>{formatOrderDate(order)}</td>
+      <td>{order.items.map((item) => item.name).join(', ')}</td>
+      <td className={styles.right}>{formatOrderAmount(order)}</td>
     </tr>
   ));
 

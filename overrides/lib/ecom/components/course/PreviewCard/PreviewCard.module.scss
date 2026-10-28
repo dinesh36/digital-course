@@ -47,26 +47,16 @@ $breakpoint-tablet: 1024px;
 
       .purchasedBadge {
         display: flex;
-        justify-content: space-between;
+        gap: var(--size-2);
         align-items: center;
         padding: var(--size-3) var(--size-4);
         border-radius: var(--size-3);
         border: 2px solid #10b981;
         background: rgba(16,185,129,0.06);
         margin-top: var(--size-4);
-
-        .purchasedLeft {
-          display: flex;
-          gap: var(--size-2);
-          align-items: center;
-          color: #059669;
-          font-weight: 700;
-        }
-        .dashboardLink {
-          color: #059669;
-          text-decoration: none;
-          font-weight: 600;
-        }
+        color: #059669;
+        font-weight: 700;
+        white-space: nowrap;
       }
 
       .docsSection {

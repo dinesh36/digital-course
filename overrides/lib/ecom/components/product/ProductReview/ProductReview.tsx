@@ -142,7 +142,7 @@ export function ProductReview({ product, showForm, onToggleForm }: ProductReview
 
   return (
     // The navbar is fixed: keep the top of the block below it.
-    <div ref={sectionRef} style={{ scrollMarginTop: '88px' }}>
+    <div ref={sectionRef} className={styles.reviewSection} style={{ scrollMarginTop: '88px' }}>
       {totalReviews ? renderReviewList() : renderReviewCart()}
     </div>
   );

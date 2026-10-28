@@ -8,7 +8,7 @@ import styles from './PreviewCard.module.scss';
 import { Product } from '@/ecom/types/product';
 import { AddToCartButton, ProductPrice } from '@/ecom/components/product';
 import { Button } from '@/ui/components';
-import { useProductDownload } from '@/ecom/hooks/useProductDownload';
+import { useProductDownload } from '@/ecom/components/product/useProductDownload';
 
 type Props = {
   product: Product
@@ -60,11 +60,8 @@ export default function PreviewCard({
 
   const renderPurchasedBadge = () => (
     <div className={styles.purchasedBadge}>
-      <div className={styles.purchasedLeft}>
-        <CheckCircle />
-        <span>Already Purchased</span>
-      </div>
-      <a href="/account/dashboard" className={styles.dashboardLink}>Go to Dashboard →</a>
+      <CheckCircle />
+      <span>You own this course</span>
     </div>
   );
 

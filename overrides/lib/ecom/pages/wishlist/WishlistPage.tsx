@@ -9,6 +9,7 @@ import styles from './WishlistPage.module.scss';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { fetchCustomerWishlistWithProductDetailsThunk } from '@/ecom/store/wishlist/wishlist-thunk';
 import { Pagination } from '@/ecom/components/layout';
+import { getProductPath } from '@/ecom/utils/pathUtils';
 
 export function WishlistPage() {
   const {
@@ -26,7 +27,7 @@ export function WishlistPage() {
 
   const renderActionButton = () => (
     <div className={styles.browseMoreContainer}>
-      <Button variant="outlined" color="black" onClick={() => router.push('/products')} className={styles.browseButton}>
+      <Button variant="outlined" color="black" onClick={() => router.push(getProductPath())} className={styles.browseButton}>
         Browse More Courses
       </Button>
     </div>

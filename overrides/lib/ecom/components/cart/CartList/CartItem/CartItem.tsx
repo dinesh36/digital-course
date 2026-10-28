@@ -12,6 +12,7 @@ import { ProductPrice } from '@/ecom/components/product';
 import { TrashIcon } from '@/ui/icons';
 import OutOfStockBadge from '@/ecom/components/product/OutOfStockBadge/OutOfStockBadge';
 import { findCategoryChildrenByName } from '@/ecom/utils/categoryUtils';
+import { getProductPath } from '@/ecom/utils/pathUtils';
 
 interface Props { item: ProductCartItem; forceMobileView?: boolean }
 
@@ -19,7 +20,7 @@ export function CartItem({ item, forceMobileView }: Props) {
   const dispatch = useAppDispatch();
   const isMobile = forceMobileView || useIsMobile();
   const isCompactView = isMobile || forceMobileView;
-  const href = `/products/${item.urlKey}`;
+  const href = getProductPath(item.urlKey);
   const categories = item.categories || [];
   const allCategories = useAppSelector((state) => state.layout.categories);
 
@@ -68,7 +69,7 @@ export function CartItem({ item, forceMobileView }: Props) {
     <div className={styles.details}>
       <p className={styles.category}>{categoryBadgeText}</p>
       <div className={styles.nameRow}>
-        <Link href={`/courses/${item.urlKey}`}>{item.name}</Link>
+        <Link href={href}>{item.name}</Link>
         {!item.isInStock && <OutOfStockBadge className={styles.outOfStock} />}
       </div>
     </div>
