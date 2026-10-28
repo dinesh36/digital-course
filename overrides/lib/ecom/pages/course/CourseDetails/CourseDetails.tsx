@@ -5,6 +5,7 @@ import { notFound, useParams, useSearchParams } from 'next/navigation';
 import styles from './CourseDetails.module.scss';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { getProductAttributesFromQuery } from '@/ecom/utils';
+import { getCourseDetails } from '@/ecom/utils/product-utils/courseDetails';
 import { fetchProductByUrlKey } from '@/ecom/store/product/product-details-thunk';
 import { ApiState } from '@/ecom/types/common';
 import { Loading, VisibleOnScroll } from '@/ui/components';
@@ -13,6 +14,7 @@ import CourseInfo from '@/ecom/components/course/CourseInfo/CourseInfo';
 import AboutDocumentSection from '@/ecom/components/course/AboutDocumentSection/AboutDocumentSection';
 import DocumentStructureSection from '@/ecom/components/course/DocumentStructureSection/DocumentStructureSection';
 import { RelatedProduct } from '@/ecom/components/product';
+import { ProductReview } from '@/ecom/components/product/ProductReview/ProductReview';
 
 export default function CourseDetails() {
   const params = useParams();
@@ -46,14 +48,18 @@ export default function CourseDetails() {
         <div className={`${styles.courseContent} ${styles.container}`}>
           <div className={styles.gradientBackdrop} />
           <div className={styles.row}>
-            <CourseInfo product={product} />
+            <CourseInfo product={product}>
+              <AboutDocumentSection description={product.description} />
+            </CourseInfo>
             <PreviewCard product={product} />
           </div>
         </div>
       </div>
       <div className={`${styles.documentSection} ${styles.container}`}>
-        <AboutDocumentSection description={product.description} />
-        <DocumentStructureSection documentStructure={product.documentStructure} />
+        <DocumentStructureSection documentStructure={getCourseDetails(product).structure} />
+        <div className={styles.reviewsCell}>
+          <ProductReview product={product} />
+        </div>
       </div>
       <div className={`${styles.container} ${styles.relatedProductsSection}`}>
         <VisibleOnScroll>

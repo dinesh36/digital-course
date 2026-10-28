@@ -1,18 +1,19 @@
 'use client';
 
 import React from 'react';
+import { getCourseDetails } from '@/ecom/utils/product-utils/courseDetails';
 import styles from './CourseInfo.module.scss';
 import { Typography } from '@/ui/components';
 import { renderHtml } from '@/ecom/utils';
 import { Product } from '@/ecom/types/product';
 import { UserIcon } from '@/ui/icons';
-import { ProductReview } from '@/ecom/components/product/ProductReview/ProductReview';
 
 type Props = {
     product: Product;
+    children?: React.ReactNode;
 };
 
-export default function CourseInfo({ product }: Props) {
+export default function CourseInfo({ product, children }: Props) {
   const renderTitle = () => (
     <Typography variant="h1" className={styles.title}>{product.name}</Typography>
   );
@@ -31,7 +32,7 @@ export default function CourseInfo({ product }: Props) {
       <div>
         <span className={styles.mutedSmall}>Created by</span>
         <span className={styles.instructorName}>
-          {product.documentAuthorName}
+          {getCourseDetails(product).author}
         </span>
       </div>
     </div>
@@ -42,9 +43,7 @@ export default function CourseInfo({ product }: Props) {
       {renderTitle()}
       {renderShortDescription()}
       {renderAuthorInfo()}
-      <div className={styles.statsRow}>
-        <ProductReview product={product} />
-      </div>
+      {children}
     </div>
   );
 }

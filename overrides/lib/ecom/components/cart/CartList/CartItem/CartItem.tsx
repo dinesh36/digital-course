@@ -2,9 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { getProductImage } from '@/ecom/utils/product-utils/productImage';
 import styles from './CartItem.module.scss';
 import { useIsMobile } from '@/ecom/utils/hook/useResponsive';
-import { ProductCartItem } from '@/ecom/types/product';
+import type { CartItem as CartItemType } from '@/ecom/types/cart';
 import { Button, Image } from '@/ui/components';
 import { removeCartItemThunk } from '@/ecom/store/cart/cart-thunk';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
@@ -12,15 +13,17 @@ import { ProductPrice } from '@/ecom/components/product';
 import { TrashIcon } from '@/ui/icons';
 import OutOfStockBadge from '@/ecom/components/product/OutOfStockBadge/OutOfStockBadge';
 import { findCategoryChildrenByName } from '@/ecom/utils/categoryUtils';
+import { getProductPath } from '@/ecom/utils/pathUtils';
 
-interface Props { item: ProductCartItem; forceMobileView?: boolean }
+interface Props { item: CartItemType; forceMobileView?: boolean }
 
 export function CartItem({ item, forceMobileView }: Props) {
   const dispatch = useAppDispatch();
   const isMobile = forceMobileView || useIsMobile();
   const isCompactView = isMobile || forceMobileView;
-  const href = `/products/${item.urlKey}`;
-  const categories = item.categories || [];
+  const href = getProductPath(item.product.urlKey);
+  const image = getProductImage(item);
+  const categories = item.product.categories || [];
   const allCategories = useAppSelector((state) => state.layout.categories);
 
   const coursesGroupChildren = React.useMemo(
@@ -47,7 +50,7 @@ export function CartItem({ item, forceMobileView }: Props) {
   const renderImage = () => (
     <div className={styles.imageWrapper}>
       <Link href={href}>
-        <Image src={item.image.url} alt={item.image.alt} />
+        <Image src={image.url} alt={image.alt} />
       </Link>
     </div>
   );
@@ -68,8 +71,8 @@ export function CartItem({ item, forceMobileView }: Props) {
     <div className={styles.details}>
       <p className={styles.category}>{categoryBadgeText}</p>
       <div className={styles.nameRow}>
-        <Link href={`/courses/${item.urlKey}`}>{item.name}</Link>
-        {!item.isInStock && <OutOfStockBadge className={styles.outOfStock} />}
+        <Link href={href}>{item.product.name}</Link>
+        {!item.product.isInStock && <OutOfStockBadge className={styles.outOfStock} />}
       </div>
     </div>
   );
@@ -87,7 +90,7 @@ export function CartItem({ item, forceMobileView }: Props) {
       <div className={styles.productDetails}>
         <div className={styles.textAndTotalPrice}>
           {renderNameAndConfigOptions()}
-          <ProductPrice product={item} className={styles.priceBlock} />
+          <ProductPrice cartItem={item} className={styles.priceBlock} />
         </div>
         <div className={styles.quantityAndRemoveButton}>
           {renderRemoveButton(false)}
@@ -102,7 +105,7 @@ export function CartItem({ item, forceMobileView }: Props) {
       <div className="w-[100%]">
         <div className={styles.titlePriceRow}>
           {renderCompactNameAndTrash()}
-          <ProductPrice product={item} className={styles.priceBlock} showRegularPrice={false} />
+          <ProductPrice cartItem={item} className={styles.priceBlock} showRegularPrice={false} />
         </div>
       </div>
     </div>

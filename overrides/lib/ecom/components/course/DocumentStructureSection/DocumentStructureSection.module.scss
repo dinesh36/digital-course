@@ -1,5 +1,10 @@
 .documentStructureSection {
+  // The title and the accordion are cells of the page grid, so the reviews card lines up with the accordion
+  display: contents;
+
   .documentStructureTitle {
+    grid-column: 1;
+    grid-row: 1;
     margin: var(--size-8) 0;
     color: var(--heading-text-color);
     font-family: Outfit, sans-serif;
@@ -44,6 +49,8 @@
   }
 
   .accordion {
+    grid-column: 1;
+    grid-row: 2;
     .accordionItem {
       &:hover {
         .documentRowTitle {

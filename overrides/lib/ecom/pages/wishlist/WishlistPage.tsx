@@ -9,6 +9,7 @@ import styles from './WishlistPage.module.scss';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { fetchCustomerWishlistWithProductDetailsThunk } from '@/ecom/store/wishlist/wishlist-thunk';
 import { Pagination } from '@/ecom/components/layout';
+import { getProductPath } from '@/ecom/utils/pathUtils';
 
 export function WishlistPage() {
   const {
@@ -24,9 +25,16 @@ export function WishlistPage() {
     dispatch(fetchCustomerWishlistWithProductDetailsThunk(currentPageParam));
   }, [currentPageParam]);
 
+  // The last product of a page was removed: show the page before it
+  useEffect(() => {
+    if (!isLoading && !products.length && currentPageParam > 1) {
+      router.replace(`?page=${currentPageParam - 1}`);
+    }
+  }, [isLoading, products.length]);
+
   const renderActionButton = () => (
     <div className={styles.browseMoreContainer}>
-      <Button variant="outlined" color="black" onClick={() => router.push('/products')} className={styles.browseButton}>
+      <Button variant="outlined" color="black" onClick={() => router.push(getProductPath())} className={styles.browseButton}>
         Browse More Courses
       </Button>
     </div>

@@ -2,7 +2,7 @@ export * from '@/ecom/components/product/ProductReview';
 export * from '@/ecom/components/product/ProductStarRating/ProductStarRating';
 export * from '@/ecom/components/product/ProductInfo/ProductContents/ProductContents';
 export * from './AddToCartButton/AddToCartButton';
-export * from './ProductPrice/ProductPrice';
+export * from '@/ecom-base/components/product/ProductPrice/ProductPrice';
 export * from '@/ecom/components/product/RelatedProduct/RelatedProduct';
 export * from './ProductTile/ProductTile';
 export * from '@/ecom/components/product/WishlistProductButton/WishlistProductButton';

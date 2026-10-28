@@ -47,26 +47,16 @@ $breakpoint-tablet: 1024px;
 
       .purchasedBadge {
         display: flex;
-        justify-content: space-between;
+        gap: var(--size-2);
         align-items: center;
         padding: var(--size-3) var(--size-4);
         border-radius: var(--size-3);
         border: 2px solid #10b981;
         background: rgba(16,185,129,0.06);
         margin-top: var(--size-4);
-
-        .purchasedLeft {
-          display: flex;
-          gap: var(--size-2);
-          align-items: center;
-          color: #059669;
-          font-weight: 700;
-        }
-        .dashboardLink {
-          color: #059669;
-          text-decoration: none;
-          font-weight: 600;
-        }
+        color: #059669;
+        font-weight: 700;
+        white-space: nowrap;
       }
 
       .docsSection {
@@ -98,16 +88,30 @@ $breakpoint-tablet: 1024px;
         display: inline-flex;
         color: var(--primary-color);
       }
+      .fileItem {
+        display: flex;
+        gap: var(--size-3);
+        align-items: center;
+        font-size: var(--font-size-3);
+      }
+      .fileName {
+        flex: 1;
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+      .fileSize {
+        color: var(--muted-foreground);
+        white-space: nowrap;
+      }
 
+      // A filled (contained) button, like Add to Cart: the variant's own colours are kept
       .outlineButton {
         width: 100%;
         margin-top: var(--size-4);
-        border-radius: var(--size-2);
+        border-radius: var(--size-3);
         gap: var(--size-2);
-        border: 1px solid var(--muted-foreground);
+        font-weight: 700;
         cursor: pointer;
-        color: var(--black-color);
-        background: transparent;
       }
     }
   }

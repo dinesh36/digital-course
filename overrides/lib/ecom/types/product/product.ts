@@ -11,10 +11,4 @@ export type {
 
 export type Product = BaseProduct & {
     isPurchased?: boolean;
-    documentAuthorName?: string;
-    documentPageCount?: string;
-    documentFileSize?: string;
-    documentFormat?: string;
-    documentHours?: string;
-    documentStructure?: string;
 };

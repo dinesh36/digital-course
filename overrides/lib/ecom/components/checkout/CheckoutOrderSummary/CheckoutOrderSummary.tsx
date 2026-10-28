@@ -3,14 +3,16 @@
 import React from 'react';
 import { CheckCircle2, Clock } from 'lucide-react';
 import { useAppSelector } from '@/ecom/store/hooks';
-import { getProductDisplayPrice, getDisplayPrice } from '@/ecom/utils/price';
-import styles from './ShippingOrderSummary.module.scss';
+import { getCartItemDisplayPrice, getDisplayPrice } from '@/ecom/utils/price';
+import styles from './CheckoutOrderSummary.module.scss';
 import { Typography } from '@/ui/components';
 
-export function ShippingOrderSummary() {
-  const { cartItems, cartTotal } = useAppSelector((state) => state.cart);
+export function CheckoutOrderSummary() {
+  const {
+    cartItems, subtotal, discount, tax: cartTax, total,
+  } = useAppSelector((state) => state.cart);
 
-  const finalAmount = cartTotal?.grandTotal ?? 0;
+  const finalAmount = total;
   const formattedFinal = getDisplayPrice(finalAmount);
 
   const renderEmptyCartSection = () => (
@@ -25,16 +27,16 @@ export function ShippingOrderSummary() {
   );
 
   const renderDiscountSection = () => (
-    cartTotal?.discount ? (
+    discount ? (
       <div className={styles.taxRow}>
         <span className={styles.rowLabel}>Discount</span>
-        <span className={styles.rowValue}>{getDisplayPrice(Math.abs(cartTotal.discount), undefined, true)}</span>
+        <span className={styles.rowValue}>{getDisplayPrice(Math.abs(discount), undefined, true)}</span>
       </div>
     ) : null
   );
 
   const renderTaxSection = () => (
-    cartTotal.appliedTaxes.map((tax, idx) => (
+    cartTax.appliedTaxes.map((tax, idx) => (
       <div key={tax.label ?? `tax-${idx}`} className={styles.taxRow}>
         <span className={styles.rowLabel}>{tax.label}</span>
         <span className={styles.rowValue}>{getDisplayPrice(tax.value ?? 0)}</span>
@@ -47,17 +49,17 @@ export function ShippingOrderSummary() {
       <div className={styles.itemsList}>
         {cartItems.map((item) => (
           <div key={item.cartItemId} className={styles.courseRow}>
-            <span className={styles.courseTitle}>{item.name}</span>
-            <span className={styles.coursePrice}>{getProductDisplayPrice(item)}</span>
+            <span className={styles.courseTitle}>{item.product.name}</span>
+            <span className={styles.coursePrice}>{getCartItemDisplayPrice(item)}</span>
           </div>
         ))}
       </div>
 
       <div className={styles.subtotalRow}>
         <span className={styles.rowLabel}>Subtotal</span>
-        <span className={styles.rowValue}>{getDisplayPrice(cartTotal?.subTotal ?? 0)}</span>
+        <span className={styles.rowValue}>{getDisplayPrice(subtotal)}</span>
       </div>
-      {cartTotal?.appliedTaxes?.length > 0 && (renderTaxSection())}
+      {cartTax.appliedTaxes.length > 0 && (renderTaxSection())}
       {renderDiscountSection()}
     </>
   );

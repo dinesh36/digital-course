@@ -7,21 +7,20 @@ import { Link } from '@/ecom/components/layout';
 import styles from './ProductTile.module.scss';
 import { Product } from '@/ecom/types/product';
 import ProductImage from '@/ecom/components/ProductImage/ProductImage';
-import { ProductPrice, WishlistProductButton } from '@/ecom/components/product';
+import { ProductPrice, WishlistProductButton, useWishlist } from '@/ecom/components/product';
 import { AddToCartButton } from '@/ecom/components/product/AddToCartButton/AddToCartButton';
 import { Button, Typography } from '@/ui/components';
-import { CustomerOrder, CustomerOrderLineItem } from '@/ecom/types/account';
-import { formatOrderDate, getDisplayPrice } from '@/ecom/utils';
-import { useProductDownload } from '@/ecom/hooks/useProductDownload';
+import { getDisplayPrice } from '@/ecom/utils';
+import { useProductDownload } from '@/ecom/components/product/useProductDownload';
 import { findCategoryChildrenByName, getCategoryLink } from '@/ecom/utils/categoryUtils';
 import { useAppSelector } from '@/ecom/store/hooks';
+import { getProductPath } from '@/ecom/utils/pathUtils';
+import { getCourseDetails } from '@/ecom/utils/product-utils/courseDetails';
 
-type OrderItem = CustomerOrderLineItem & CustomerOrder;
 type ProductTileProps = {
     product: Product;
     isSearchTile?: boolean;
     isDashboardTile?: boolean;
-    orderItem?: OrderItem;
     onClick?: () => void;
 };
 
@@ -29,14 +28,15 @@ export default function ProductTile({
   product,
   isSearchTile,
   isDashboardTile,
-  orderItem,
   onClick,
 }: ProductTileProps) {
   const {
-    name, thumbnailImage, categories: productCategories, documentAuthorName,
+    name, thumbnailImage, categories: productCategories,
   } = product;
+  const { author: documentAuthorName } = getCourseDetails(product);
   const allCategories = useAppSelector((state) => state.layout.categories);
   const { isDownloading, downloadProduct } = useProductDownload(product);
+  const { isWishlisted } = useWishlist(product);
 
   const getOrderAmount = (amount: number, currency?: string) => (
     currency ? getDisplayPrice(amount, currency) : getDisplayPrice(amount)
@@ -145,13 +145,7 @@ export default function ProductTile({
   const renderDashboardFooter = () => (
     <div className={styles.orderFooter}>
       <div className={styles.priceMeta}>
-        {orderItem ? getOrderAmount(orderItem.price, orderItem.currency) : getOrderAmount(product.price, product.currency)}
-        {orderItem?.orderDate && (
-          <>
-            <div>•</div>
-            <div className={styles.purchasedOn}>{`Purchased on ${formatOrderDate(orderItem.orderDate)}`}</div>
-          </>
-        )}
+        {getOrderAmount(product.price, product.currency)}
       </div>
       {renderFooterActions()}
     </div>
@@ -163,10 +157,10 @@ export default function ProductTile({
         {!isSearchTile && (
         <WishlistProductButton
           product={product}
-          className={`${styles.favoriteIconButton} ${styles.wishlistButton}`}
+          className={`${styles.favoriteIconButton} ${styles.wishlistButton} ${isWishlisted ? styles.wishlisted : ''}`}
         />
         )}
-        <Link href={`/courses/${product.urlKey}`} onClick={onClick} className={styles.cardLink}>
+        <Link href={getProductPath(product.urlKey)} onClick={onClick} className={styles.cardLink}>
           <div className={styles.card}>
             {renderMedia()}
             <div className={styles.content}>

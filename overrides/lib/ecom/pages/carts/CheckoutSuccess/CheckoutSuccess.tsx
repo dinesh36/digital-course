@@ -1,16 +1,15 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import styles from '@/ecom/pages/carts/CheckoutSuccess/CheckoutSuccess.module.scss';
+import styles from './CheckoutSuccess.module.scss';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { Button, Loading } from '@/ui/components';
 import { setIsFullScreenLoadingVisible } from '@/ecom/store/layout/layout-slice';
-import { PRODUCTS_PATH } from '@/ecom/constants';
+import { getProductPath } from '@/ecom/utils/pathUtils';
 
 export default function CheckoutSuccess() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const orderNumber = useAppSelector((state) => state.payment.succeedOrderId);
-  const isUserLoggedIn = useAppSelector((state) => state.auth.isUserLoggedIn);
 
   useEffect(() => {
     dispatch(setIsFullScreenLoadingVisible(false));
@@ -34,7 +33,7 @@ export default function CheckoutSuccess() {
     <>
       <h1>Thank You for Your Order!</h1>
       <p className={styles.message}>
-        We’ve received your order and are preparing it for delivery.
+        Your order is confirmed. Your courses are in My Courses, and we have emailed you the order details.
       </p>
     </>
   );
@@ -43,28 +42,17 @@ export default function CheckoutSuccess() {
     <div className={styles.details}>
       <p>
         Order ID:
-        {isUserLoggedIn ? (
-          <button
-            type="button"
-            className={styles.orderId}
-            onClick={() => router.replace(`/account/orders/${orderNumber}`)}
-          >
-            {`#${orderNumber}`}
-          </button>
-        ) : (
-          <span className={styles.orderIdDisabled}>{`#${orderNumber}`}</span>
-        )}
-      </p>
-      <p>
-        Delivery:
-        <strong style={{ marginLeft: 'var(--size-1)' }}>Expected in 5–7 Business Days</strong>
+        <span className={styles.orderIdDisabled}>{`#${orderNumber}`}</span>
       </p>
     </div>
   );
 
   const renderContinueShoppingButton = () => (
     <div className={styles.button}>
-      <Button onClick={() => router.push(`/${PRODUCTS_PATH}`)}>
+      <Button onClick={() => router.push('/account/dashboard')}>
+        Go to My Courses
+      </Button>
+      <Button variant="outlined" onClick={() => router.push(getProductPath())}>
         Continue Shopping
       </Button>
     </div>

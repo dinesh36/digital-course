@@ -37,6 +37,12 @@ $max-mobile-width: 768px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
+
+    // A course on the wishlist keeps its heart visible without the hover
+    &.wishlisted {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
   .card {

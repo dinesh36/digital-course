@@ -166,7 +166,8 @@
     display: flex;
     position: relative;
     gap: var(--size-4);
-    background: #f9f8f5;
+    background: var(--background-white-color);
+    border: 1px solid var(--border-color-light);
     margin-bottom: var(--size-3);
 
     > div:last-child {

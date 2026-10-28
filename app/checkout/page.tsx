@@ -1,7 +1,7 @@
 'use client';
 
-import { Shipping } from '@/ecom/pages/checkout/Shipping/Shipping';
+import { Checkout } from '@/ecom/pages/checkout/Checkout/Checkout';
 
 export default function CheckoutPage() {
-  return <Shipping />;
+  return <Checkout />;
 }

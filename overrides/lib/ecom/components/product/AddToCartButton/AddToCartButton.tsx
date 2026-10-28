@@ -27,7 +27,7 @@ export function AddToCartButton({
   const isInStock = isProductInStock(product);
   const isLoading = addToCartItemSkus.includes(product.sku);
   const isPurchased = Boolean(product.isPurchased);
-  const isAlreadyInCart = cartItems.some((item) => item.sku === product.sku);
+  const isAlreadyInCart = cartItems.some((item) => item.product.sku === product.sku);
   let buttonText = label ?? 'Add to Cart';
 
   if (isAlreadyInCart) {
