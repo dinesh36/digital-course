@@ -1,6 +1,5 @@
 export * from '@/ecom-base/utils/generateUuid';
 export * from './product-utils';
-export * from '@/ecom-base/utils/order-details-utils';
 export * from '@/ecom-base/utils/productUtils';
 export * from '@/ecom-base/utils/pathUtils';
 export * from '@/ecom-base/utils/hook';
