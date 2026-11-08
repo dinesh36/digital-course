@@ -42,8 +42,7 @@ export default async function LayoutContainer({ children }: { children: React.Re
   // Set the layout for the home page differently
   const containerClass = isFullScreenLayout(currentPath) ? '' : styles.appContainer;
 
-  const isImageEditor = currentPath.startsWith('/image-editor');
-  const hideFooter = currentPath === '/print-layout' || currentPath === '/image-editor';
+  const hideFooter = currentPath === '/print-layout';
 
   // Check for category loading error
   const preloadedState = initStore.getState();
@@ -66,7 +65,7 @@ export default async function LayoutContainer({ children }: { children: React.Re
               <div className={styles.pageContainer}>
                 <AppLayoutClientSide containerClass={styles.appContainer} />
                 <div
-                  className={`${containerClass} ${isImageEditor ? styles.imageEditorContainer : ''}`}
+                  className={containerClass}
                   data-testid="app-container"
                 >
                   {children}
