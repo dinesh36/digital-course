@@ -16,7 +16,7 @@ import { isFullScreenLayout } from '@/ecom/pages/layout/layoutUtils';
 import { AppStore } from '@/ecom/pages/layout/AppStore';
 import FullScreenLoader from '@/ecom/components/layout/GlobalLoader/FullScreenLoader';
 
-export default async function LayoutContainer({ children }: { children: React.ReactNode; }) {
+export default async function SSRLayoutContainer({ children }: { children: React.ReactNode; }) {
   // Init category and user data on the server side
   const initStore = createStore();
   const currentPath = await getCurrentPath();
@@ -48,34 +48,33 @@ export default async function LayoutContainer({ children }: { children: React.Re
   const preloadedState = initStore.getState();
   const categoryError = preloadedState.layout.categories.error;
 
+  // The document (`html`, `body`) is the root layout's (`app/layout.tsx`).
+  if (categoryError) {
+    return (
+      <ErrorMessage
+        message="Something went wrong, please try again"
+        minHeight="100vh"
+      />
+    );
+  }
+
   return (
-    <html lang="en">
-      <body>
-        {categoryError ? (
-          <ErrorMessage
-            message="Something went wrong, please try again"
-            minHeight="100vh"
-          />
-        ) : (
-          <AppStore preloadedState={preloadedState}>
-            <Navbar />
-            <Toaster />
-            <FullScreenLoader />
-            <Suspense fallback="Loading...">
-              <div className={styles.pageContainer}>
-                <AppLayoutClientSide containerClass={styles.appContainer} />
-                <div
-                  className={containerClass}
-                  data-testid="app-container"
-                >
-                  {children}
-                </div>
-              </div>
-            </Suspense>
-            {!hideFooter && <Footer />}
-          </AppStore>
-        )}
-      </body>
-    </html>
+    <AppStore preloadedState={preloadedState}>
+      <Navbar />
+      <Toaster />
+      <FullScreenLoader />
+      <Suspense fallback="Loading...">
+        <div className={styles.pageContainer}>
+          <AppLayoutClientSide containerClass={styles.appContainer} />
+          <div
+            className={containerClass}
+            data-testid="app-container"
+          >
+            {children}
+          </div>
+        </div>
+      </Suspense>
+      {!hideFooter && <Footer />}
+    </AppStore>
   );
 }

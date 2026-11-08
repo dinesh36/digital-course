@@ -1,11 +1,14 @@
 import React from 'react';
-import LayoutContainer from '@/ecom/pages/layout/LayoutContainer';
 import '../styles/globals.scss';
 
-export default async function RootLayout({ children }: { children: React.ReactNode; }) {
+// Only the document shell. The page chrome (navbar, footer, store) is in the layout of each route group: `(dynamic)` reads the
+// request (path and signed-in user) on every render, `(static)` is built once and so cannot read it.
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
-    <LayoutContainer>
-      {children}
-    </LayoutContainer>
+    <html lang="en">
+      <body>
+        {children}
+      </body>
+    </html>
   );
 }
