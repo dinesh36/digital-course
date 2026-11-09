@@ -13,6 +13,7 @@ import styles from './OurCollection.module.scss';
 import { Button, Typography } from '@/ui/components';
 import { Link } from '@/ecom/components/layout';
 import { getCategoryLink } from '@/ecom/utils/categoryUtils';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 type Category = {
     name: string;
@@ -39,7 +40,7 @@ function OurCollection() {
   const router = useRouter();
 
   const renderViewAllButton = (className: string, isShowIcon: boolean, variant: 'clear' | 'outlined') => (
-    <Button variant={variant} className={className} onClick={() => router.push('/courses')}>
+    <Button variant={variant} className={className} onClick={() => router.push(getProductListPath())}>
       View All Courses
       {isShowIcon && <ArrowRight className={styles.viewAllIcon} />}
     </Button>

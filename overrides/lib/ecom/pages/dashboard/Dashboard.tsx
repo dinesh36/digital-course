@@ -10,6 +10,7 @@ import { PRODUCTS_PER_PAGE } from '@/ecom/constants';
 import { getPurchasedProducts } from '@/ecom/services/product';
 import { Product } from '@/ecom/types/product';
 import ProductTile from '@/ecom/components/product/ProductTile/ProductTile';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 // The courses the customer bought: `GET /products/purchased` (each course once, the newest purchase first, by the same
 // rule as the download link), paged.
@@ -48,7 +49,7 @@ export default function Dashboard() {
   const renderHeader = () => (
     <div className={styles.header}>
       <Typography variant="h2" component="h2" className={styles.title}>My Courses</Typography>
-      <Button className={styles.browseButton} variant="clear" onClick={() => router.push('/courses')}>
+      <Button className={styles.browseButton} variant="clear" onClick={() => router.push(getProductListPath())}>
         Browse More
         <ArrowRight className={styles.icon} />
       </Button>

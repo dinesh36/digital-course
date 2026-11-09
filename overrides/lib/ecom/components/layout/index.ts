@@ -1,4 +1,3 @@
-export * from '@/ecom-base/components/layout/Breadcrumb/useBreadcrumb';
 export * from '@/ecom-base/components/layout/Breadcrumb/Breadcrumb';
 export * from '@/ecom-base/components/layout/Toaster';
 export * from '@/ecom-base/components/layout/Navbar/common/NavButton';

@@ -5,6 +5,8 @@ import { getProducts } from '@/ecom/services/product/product.service';
 import { getProductWithAttributes } from '@/ecom/utils';
 import { generateProductSeoContent } from '@/ecom/store/layout/layout-thunk';
 import { getAllProductUrlKeys } from '@/ecom/ssr-utils/static-data';
+import { Breadcrumb } from '@/ecom/components/layout';
+import { PRODUCTS_LABEL, PRODUCTS_PATH } from '@/ecom/constants';
 
 // Only the products that exist at build time have a page
 export const dynamicParams = false;
@@ -23,6 +25,8 @@ export default async function CoursePage({ params }: { params: Promise<{ 'course
   return (
     <>
       <StaticPageSeo seoData={generateProductSeoContent(product)} />
+      {/* A product has no CMS page, so its breadcrumb is set here: the courses page, then the product */}
+      <Breadcrumb items={[{ label: PRODUCTS_LABEL, link: `/${PRODUCTS_PATH}` }, { label: product.name }]} />
       <CourseDetails initialProduct={product} />
     </>
   );

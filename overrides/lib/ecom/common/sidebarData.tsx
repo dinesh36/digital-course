@@ -8,6 +8,7 @@ import {
 import ExploreIcon from '@/ui/icons/ExploreIcon';
 import GridIcon from '@/ui/icons/GridIcon';
 import SettingsIcon from '@/ui/icons/SettingsIcon';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 export const sidebarSections = [
   {
@@ -17,7 +18,7 @@ export const sidebarSections = [
         key: 'my-courses', label: 'My Courses', route: '/account/dashboard', icon: <GridIcon width={18} height={18} />,
       },
       {
-        key: 'explore-courses', label: 'Explore Courses', route: '/courses', icon: <ExploreIcon width={18} height={18} />,
+        key: 'explore-courses', label: 'Explore Courses', route: getProductListPath(), icon: <ExploreIcon width={18} height={18} />,
       },
       {
         key: 'wishlist', label: 'Wishlist', route: '/wishlist', icon: <HeartIcon width={18} height={18} />,

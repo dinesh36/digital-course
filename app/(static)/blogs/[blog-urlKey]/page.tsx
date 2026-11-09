@@ -3,6 +3,7 @@ import StaticPageSeo from '@/ecom/components/PageSeo/StaticPageSeo';
 import { getBlogPost } from '@/ecom/services/blog/blog.service';
 import { getBlogSeoContent } from '@/ecom/store/layout/layout-thunk';
 import { getAllBlogUrlKeys } from '@/ecom/ssr-utils/static-data';
+import { Breadcrumb } from '@/ecom/components/layout';
 
 // Only the posts that exist at build time have a page
 export const dynamicParams = false;
@@ -19,6 +20,8 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ 'b
   return (
     <>
       <StaticPageSeo seoData={getBlogSeoContent(post)} />
+      {/* A post has no CMS page, so its breadcrumb is set here: the blogs page, then the post */}
+      <Breadcrumb items={[{ label: 'Blogs', link: '/blogs' }, { label: post.name }]} />
       <BlogDetail initialPost={post} />
     </>
   );

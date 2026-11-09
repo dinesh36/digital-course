@@ -6,6 +6,7 @@ import {
 import { useRouter } from 'next/navigation';
 import styles from './HeroSection.module.scss';
 import { Button } from '@/ui/components';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 function HeroSection() {
   const router = useRouter();
@@ -39,7 +40,7 @@ function HeroSection() {
 
   const renderActions = () => (
     <div className={styles.actions}>
-      <Button className={styles.primaryBtn} onClick={() => router.push('/courses')}>
+      <Button className={styles.primaryBtn} onClick={() => router.push(getProductListPath())}>
         Explore Courses
         <ArrowRight className={styles.buttonIcon} />
       </Button>

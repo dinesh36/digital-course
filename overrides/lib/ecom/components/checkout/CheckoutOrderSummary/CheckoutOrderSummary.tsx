@@ -6,6 +6,7 @@ import { useAppSelector } from '@/ecom/store/hooks';
 import { getCartItemDisplayPrice, getDisplayPrice } from '@/ecom/utils/price';
 import styles from './CheckoutOrderSummary.module.scss';
 import { Typography } from '@/ui/components';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 export function CheckoutOrderSummary() {
   const {
@@ -19,7 +20,7 @@ export function CheckoutOrderSummary() {
     <div className={styles.emptyCart}>
       <p>
         {'Cart is empty. '}
-        <a href="/courses" className={styles.browseLink}>
+        <a href={getProductListPath()} className={styles.browseLink}>
           Browse courses
         </a>
       </p>
