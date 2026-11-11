@@ -2,42 +2,42 @@
 
 import React from 'react';
 import {
+  ArrowRight,
   Briefcase,
   Code,
-  PenTool,
-  ArrowRight,
-  ChartCandlestick,
+  Cpu,
+  HeartPulse,
+  Landmark,
+  LayoutGrid,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import styles from './OurCollection.module.scss';
 import { Button, Typography } from '@/ui/components';
 import { Link } from '@/ecom/components/layout';
-import { getCategoryLink } from '@/ecom/utils/categoryUtils';
+import { useAppSelector } from '@/ecom/store/hooks';
+import { findCategoryChildrenByName, getCategoryLink } from '@/ecom/utils/categoryUtils';
 import { getProductListPath } from '@/ecom/utils/pathUtils';
+import type { ProductCategory } from '@/ecom/types/productCategory';
 
-type Category = {
-    name: string;
-    icon: React.ElementType;
-    urlKey: string;
+// The home page shows the first categories of the course group, in the backend's order (the same as the filter and the footer).
+const COURSES_GROUP = 'Courses Group';
+const TOP_CATEGORIES_COUNT = 4;
+
+const ICONS_BY_URL_KEY: Record<string, React.ElementType> = {
+  programming: Code,
+  finance: Landmark,
+  'ai-digital-skills': Cpu,
+  'career-business': Briefcase,
+  'health-life': HeartPulse,
 };
-
-const categories: Category[] = [
-  {
-    name: 'Programming', icon: Code, urlKey: 'programming',
-  },
-  {
-    name: 'Business', icon: Briefcase, urlKey: 'business',
-  },
-  {
-    name: 'Design', icon: PenTool, urlKey: 'design',
-  },
-  {
-    name: 'Marketing', icon: ChartCandlestick, urlKey: 'marketing',
-  },
-];
 
 function OurCollection() {
   const router = useRouter();
+  const allCategories = useAppSelector((state) => state.layout.categories.data);
+  const categories = React.useMemo(
+    () => findCategoryChildrenByName(allCategories, COURSES_GROUP).slice(0, TOP_CATEGORIES_COUNT),
+    [allCategories],
+  );
 
   const renderViewAllButton = (className: string, isShowIcon: boolean, variant: 'clear' | 'outlined') => (
     <Button variant={variant} className={className} onClick={() => router.push(getProductListPath())}>
@@ -56,18 +56,18 @@ function OurCollection() {
     </div>
   );
 
-  const renderCategoryCard = (category: Category) => {
-    const Icon = category.icon;
+  const renderCategoryCard = (category: ProductCategory) => {
+    const Icon = ICONS_BY_URL_KEY[category.urlKey] ?? LayoutGrid;
 
     return (
-      <div key={category.name} className={styles.card}>
+      <Link key={category.id} className={styles.card} href={getCategoryLink(category.urlKey)}>
         <div className={styles.iconWrap}>
           <Icon className={styles.icon} />
         </div>
-        <Link className={styles.cardContent} href={getCategoryLink(category.urlKey)}>
+        <div className={styles.cardContent}>
           <Typography variant="h2" className={styles.cardHeader}>{category.name}</Typography>
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   };
 
