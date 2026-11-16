@@ -16,7 +16,9 @@ $breakpoint-tablet: 1024px;
   right: 0;
   top: 0;
 
-  :global(body.with-announcement-header) & {
+  // `:has` puts the offset in place for the built HTML, before any script has added the body class
+  :global(body.with-announcement-header) &,
+  :global(body:has([data-announcement-header])) & {
     top: var(--announcement-header-height);
   }
   z-index: 50;
@@ -255,4 +257,24 @@ $breakpoint-tablet: 1024px;
 @keyframes slideDown {
   from { transform: translateY(-6px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+// Takes the place of the `Log in` button and the user name until the browser knows whether a customer is signed in.
+.authLoader {
+  display: inline-block;
+  width: 96px;
+  height: 36px;
+  border-radius: var(--size-2);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: authLoaderShimmer 1.2s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes authLoaderShimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
 }

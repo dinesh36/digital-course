@@ -18,6 +18,14 @@
   padding-bottom: var(--size-4);
 }
 
+// A built page that is full screen (`FullScreenMarker`) has no width limit or padding in the HTML itself, the same as
+// when `AppLayoutClientSide` removes the class in the browser.
+.appContainer:has([data-full-screen-layout]) {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
 .noPaddingBottom {
   padding: 0 !important;
   margin: 0 !important;

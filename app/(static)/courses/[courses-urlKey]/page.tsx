@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import FullScreenMarker from '@/ecom/components/layout/FullScreenMarker';
 import CourseDetails from '@/ecom/pages/course/CourseDetails/CourseDetails';
 import StaticPageSeo from '@/ecom/components/PageSeo/StaticPageSeo';
 import { getProducts } from '@/ecom/services/product/product.service';
@@ -24,6 +25,7 @@ export default async function CoursePage({ params }: { params: Promise<{ 'course
 
   return (
     <>
+      <FullScreenMarker />
       <StaticPageSeo seoData={generateProductSeoContent(product)} />
       {/* A product has no CMS page, so its breadcrumb is set here: the courses page, then the product */}
       <Breadcrumb items={[{ label: PRODUCTS_LABEL, link: `/${PRODUCTS_PATH}` }, { label: product.name }]} />

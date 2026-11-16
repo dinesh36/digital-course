@@ -17,14 +17,17 @@ import { CartIcon, UserIcon } from '@/ui/icons';
 import CartSlider from '@/ecom/components/cart/CartSlider/CartSlider';
 import { useIsMobile } from '@/ecom/utils';
 
-export function Navbar() {
+// `checkSession`: on a built page the browser does not know yet whether a customer is signed in, so a placeholder takes
+// the place of the `Log in` button and the user name until the backend has answered.
+export function Navbar({ checkSession = false }: { checkSession?: boolean }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
   const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const headerMenuItems = useAppSelector((state) => state.layout.menus.headerMenu) || [];
-  const { isUserLoggedIn, user } = useAppSelector((state) => state.auth);
+  const { isUserLoggedIn, user, isSessionChecked } = useAppSelector((state) => state.auth);
+  const isCheckingSession = checkSession && !isSessionChecked;
   const { cartItemsCount, displayCount } = useCartDisplayCount();
   const userFirstName = user?.firstName?.trim() || 'Account';
 
@@ -90,21 +93,29 @@ export function Navbar() {
     </div>
   );
 
-  const renderAuthActions = () => (
-    <div className={styles.actions}>
-      {isUserLoggedIn ? (
+  const renderAuthButton = () => {
+    if (isCheckingSession) {
+      return <span className={styles.authLoader} role="status" aria-label="Checking sign-in" />;
+    }
+    if (isUserLoggedIn) {
+      return (
         <Button variant="clear" className={styles.userBtn} onClick={handleUserClick}>
           <span className={styles.userInfo}>
             <UserIcon width={16} />
             <span className={styles.userName}>{userFirstName}</span>
           </span>
         </Button>
-      ) : (
-        <Button variant="contained" className={styles.signupBtn} onClick={handleUserClick}>
-          Log in
-        </Button>
-      )}
-    </div>
+      );
+    }
+    return (
+      <Button variant="contained" className={styles.signupBtn} onClick={handleUserClick}>
+        Log in
+      </Button>
+    );
+  };
+
+  const renderAuthActions = () => (
+    <div className={styles.actions}>{renderAuthButton()}</div>
   );
 
   const renderMobileToggle = () => (
@@ -125,9 +136,11 @@ export function Navbar() {
         {renderLinks(styles.mobileNavLink, () => setIsMobileMenuOpen(false))}
         <div className={styles.divider} />
         <div className={styles.mobileActions}>
-          <Button variant="contained" className={styles.mobileActionBtn} onClick={handleUserClick}>
-            {isUserLoggedIn ? 'My account' : 'Log in'}
-          </Button>
+          {isCheckingSession ? <span className={styles.authLoader} role="status" aria-label="Checking sign-in" /> : (
+            <Button variant="contained" className={styles.mobileActionBtn} onClick={handleUserClick}>
+              {isUserLoggedIn ? 'My account' : 'Log in'}
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -25,9 +25,8 @@
       padding: var(--size-5) 0;
     }
 
-    @media (max-width: 770px) {
+    @media (max-width: $breakpoint-listing-single-column) {
       grid-template-columns: repeat(1, 1fr);
-      padding: var(--size-5) 0;
     }
   }
   .browseMoreContainer {

@@ -4,6 +4,8 @@ $breakpoint-tablet: 920px;
   display: flex;
   flex-direction: row;
   gap: var(--size-6);
+  // Space between the header and the sidebar card (the page container only clears the header)
+  padding-top: var(--size-4);
 
   @media (max-width: $breakpoint-tablet){
     flex-direction: column;
