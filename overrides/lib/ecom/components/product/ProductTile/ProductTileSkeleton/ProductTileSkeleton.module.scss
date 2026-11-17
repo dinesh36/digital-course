@@ -110,7 +110,7 @@
     }
   }
 
-  @media (max-width: $breakpoint-listing-single-column) {
+  @media (max-width: $breakpoint-small-mobile) {
     border-radius: var(--size-3);
 
     .productImageContainer {

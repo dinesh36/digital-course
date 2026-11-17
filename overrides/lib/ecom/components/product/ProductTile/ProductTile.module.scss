@@ -180,6 +180,9 @@ $max-mobile-width: 768px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        // When the price and the button do not fit side by side, the button goes to the next line (the price never breaks)
+        flex-wrap: wrap;
+        gap: var(--size-3);
         padding-top: var(--size-3);
         border-top: 1px solid rgba(16,24,40,0.04);
 
@@ -187,19 +190,26 @@ $max-mobile-width: 768px;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-
-          .priceLabel {
-            font-size: var(--size-3);
-            text-transform: uppercase;
-            color: var(--muted-foreground);
-            letter-spacing: 0.08em;
-            font-weight: 700;
-          }
+          flex: none;
 
           .price {
             font-size: var(--font-size-4);
-            font-weight: 700;
+            font-weight: 500;
             color: var(--primary);
+
+            // A price (the symbol and the amount) stays on one line
+            [data-testid='product-price'],
+            [data-testid='product-regular-price'],
+            [data-testid='product-discount'] {
+              white-space: nowrap;
+              flex: none;
+            }
+
+            // ProductPrice sets its own (heavier) weights; keep the whole price on one line in the narrow tiles
+            [data-testid='product-price'],
+            [data-testid='product-discount'] {
+              font-weight: 500;
+            }
           }
         }
 
@@ -221,9 +231,9 @@ $max-mobile-width: 768px;
       min-width: 0;
     }
 
-    // The tile is taller (4/3) only where a list is one column (see `$breakpoint-listing-single-column`): in the two columns
+    // The tile is taller (4/3) only where a list is one column (see `$breakpoint-small-mobile`): in the two columns
     // above that the image keeps its 16/9 ratio, so the tile is not much bigger than it needs to be
-    @media (max-width: $breakpoint-listing-single-column) {
+    @media (max-width: $breakpoint-small-mobile) {
       .card {
         border-radius: var(--size-3);
       }

@@ -107,7 +107,6 @@ export default function ProductTile({
   const renderFooter = () => (
     <div className={styles.footer}>
       <div className={styles.priceArea}>
-        <span className={styles.priceLabel}>Price</span>
         <ProductPrice product={product} className={styles.price} />
       </div>
 

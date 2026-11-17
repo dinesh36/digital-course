@@ -13,7 +13,6 @@ import { fetchProductByUrlKey } from '@/ecom/store/product/product-details-thunk
 import { setProductData } from '@/ecom/store/product/product-details-slice';
 import { ApiState } from '@/ecom/types/common';
 import { getProductAttributesFromQuery } from '@/ecom/utils';
-import CanvasFeatures from '@/ecom/components/product/CanvasFeatures/CanvasFeatures';
 
 export default function ProductDetails() {
   const params = useParams();
@@ -48,7 +47,6 @@ export default function ProductDetails() {
         <ProductInfo product={product} setProduct={(p: Product) => dispatch(setProductData(p))} />
       </div>
       <ProductContents product={product} />
-      <CanvasFeatures />
       <VisibleOnScroll>
         <RelatedProduct sku={product.sku} />
       </VisibleOnScroll>
