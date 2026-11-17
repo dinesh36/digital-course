@@ -9,6 +9,7 @@ import { HorizontalScrollContainer } from '@/ui/layout';
 import { CacheOptions } from '@/ecom/services/api-cache';
 import { useAppSelector } from '@/ecom/store/hooks';
 import { getCategoryLink } from '@/ecom/utils/categoryUtils';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 const MAX_CATEGORY_PRODUCTS = 8;
 
@@ -69,7 +70,7 @@ export default function CategoryProducts({
         <Button
           variant="outlined"
           color="black"
-          href={categoryUrlKey ? getCategoryLink(categoryUrlKey) : '/courses'}
+          href={categoryUrlKey ? getCategoryLink(categoryUrlKey) : getProductListPath()}
         >
           VIEW ALL
         </Button>

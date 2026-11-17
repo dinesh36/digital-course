@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect, useMemo } from 'react';
-import { notFound, useParams, useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { notFound, useParams } from 'next/navigation';
 import styles from './CourseDetails.module.scss';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { getProductAttributesFromQuery } from '@/ecom/utils';
 import { getCourseDetails } from '@/ecom/utils/product-utils/courseDetails';
 import { fetchProductByUrlKey } from '@/ecom/store/product/product-details-thunk';
+import { setProductData } from '@/ecom/store/product/product-details-slice';
+import type { Product } from '@/ecom/types/product';
 import { ApiState } from '@/ecom/types/common';
 import { Loading, VisibleOnScroll } from '@/ui/components';
 import PreviewCard from '@/ecom/components/course/PreviewCard/PreviewCard';
@@ -16,25 +18,33 @@ import DocumentStructureSection from '@/ecom/components/course/DocumentStructure
 import { RelatedProduct } from '@/ecom/components/product';
 import { ProductReview } from '@/ecom/components/product/ProductReview/ProductReview';
 
-export default function CourseDetails() {
+// `initialProduct` is the product the page was built with (`next build`): it is in the HTML. The customer's own data
+// (`isPurchased`) is not in it, so a signed-in customer's browser loads the product again. The query is read in the effect,
+// not with `useSearchParams`, which would leave the whole page to the browser in a built page.
+export default function CourseDetails({ initialProduct }: { initialProduct?: Product }) {
   const params = useParams();
   const rawUrlKey = params?.['courses-urlKey'];
   const urlKey: string | undefined = Array.isArray(rawUrlKey) ? rawUrlKey[0] : rawUrlKey;
-  const searchParams = useSearchParams();
 
   const dispatch = useAppDispatch();
-  const product = useAppSelector((s) => s.productDetails.data);
+  const storeProduct = useAppSelector((s) => s.productDetails.data);
+  const isUserLoggedIn = useAppSelector((s) => s.auth.isUserLoggedIn);
+  const product = storeProduct?.urlKey === urlKey ? storeProduct : (initialProduct ?? storeProduct);
   const apiState = useAppSelector((s) => s.productDetails.apiState);
 
-  const urlAttributes = useMemo(() => getProductAttributesFromQuery(searchParams?.get('attributes') || ''), [searchParams]);
-
   useEffect(() => {
-    if (urlKey && urlKey !== product?.urlKey) {
-      dispatch(fetchProductByUrlKey({ urlKey, urlAttributes }));
+    if (!urlKey) return;
+    if (initialProduct && storeProduct?.urlKey !== urlKey) {
+      dispatch(setProductData(initialProduct));
     }
-  }, [urlKey, urlAttributes, product]);
+    // A page without a built product loads it; a built one is loaded again for a signed-in customer (`isPurchased`)
+    if (initialProduct ? isUserLoggedIn : urlKey !== storeProduct?.urlKey) {
+      const attributes = new URLSearchParams(window.location.search).get('attributes') || '';
+      dispatch(fetchProductByUrlKey({ urlKey, urlAttributes: getProductAttributesFromQuery(attributes) }));
+    }
+  }, [urlKey, isUserLoggedIn]);
 
-  if (apiState === ApiState.Loading) {
+  if (apiState === ApiState.Loading && !product) {
     return <Loading message="Fetching product details..." minHeight="80vh" />;
   }
 

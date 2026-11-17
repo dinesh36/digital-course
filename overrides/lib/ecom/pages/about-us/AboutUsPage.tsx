@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Typography } from '@/ui/components';
 import styles from './AboutUs.module.scss';
 import { BRAND_NAME } from '@/ecom/constants';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 type MethodologyPhase = {
   id: string;
@@ -211,7 +212,7 @@ function AboutUsPage() {
 
   const renderCtaSection = () => (
     <section className={styles.ctaSection}>
-      <Button onClick={() => router.push('/courses')}>Explore Our Courses</Button>
+      <Button onClick={() => router.push(getProductListPath())}>Explore Our Courses</Button>
     </section>
   );
 

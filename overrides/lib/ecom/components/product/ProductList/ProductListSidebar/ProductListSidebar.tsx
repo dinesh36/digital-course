@@ -10,6 +10,7 @@ import { FILTER_CATEGORIES_QUERY_PARAM } from '@/ecom/constants';
 import { Button, Typography } from '@/ui/components';
 import { FilterIcon } from '@/ui/icons';
 import { Slider } from '@/ui/layout';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 export default function ProductListSidebar({ isSliderOpen, setSliderOpen }: {
     isSliderOpen?: boolean,
@@ -27,7 +28,7 @@ export default function ProductListSidebar({ isSliderOpen, setSliderOpen }: {
 
     const nextUrl = nextSearchParams.toString()
       ? `${pathname}?${nextSearchParams.toString()}`
-      : pathname || '/courses';
+      : pathname || getProductListPath();
 
     router.replace(nextUrl, { scroll: false });
     setSliderOpen?.(false);

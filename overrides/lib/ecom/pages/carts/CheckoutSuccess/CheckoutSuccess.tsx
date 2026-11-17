@@ -4,7 +4,7 @@ import styles from './CheckoutSuccess.module.scss';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { Button, Loading } from '@/ui/components';
 import { setIsFullScreenLoadingVisible } from '@/ecom/store/layout/layout-slice';
-import { getProductPath } from '@/ecom/utils/pathUtils';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 export default function CheckoutSuccess() {
   const dispatch = useAppDispatch();
@@ -52,7 +52,7 @@ export default function CheckoutSuccess() {
       <Button onClick={() => router.push('/account/dashboard')}>
         Go to My Courses
       </Button>
-      <Button variant="outlined" onClick={() => router.push(getProductPath())}>
+      <Button variant="outlined" onClick={() => router.push(getProductListPath())}>
         Continue Shopping
       </Button>
     </div>

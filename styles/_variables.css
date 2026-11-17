@@ -134,6 +134,7 @@
   }
 }
 
-body.with-announcement-header {
+body.with-announcement-header,
+body:has([data-announcement-header]) {
   --top-header-height: calc(var(--header-height) + var(--announcement-header-height));
 }

@@ -5,11 +5,12 @@ import { useAppSelector } from '@/ecom/store/hooks';
 import { POLICY_CONTACT_EMAIL } from './contact';
 import { BRAND_NAME } from '@/ecom/constants';
 
-export default function RefundPolicy() {
+// `title` is the CMS page's title when the page is built at `next build`, where the store has no page SEO yet.
+export default function RefundPolicy({ title }: { title?: string }) {
   const { pageSeoDetails } = useAppSelector((state) => state.layout);
 
   return (
-    <StaticPageContainer title={pageSeoDetails?.pageTitle || 'Refund Policy'}>
+    <StaticPageContainer title={title || pageSeoDetails?.pageTitle || 'Refund Policy'}>
       <p><span>Refund Policy</span></p>
       <p>
         <span>

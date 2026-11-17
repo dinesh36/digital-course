@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './CtaSection.module.scss';
 import { Button } from '@/ui/components';
+import { getProductListPath } from '@/ecom/utils/pathUtils';
 
 export default function CtaSection() {
   return (
@@ -16,7 +17,7 @@ export default function CtaSection() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/courses" className={styles.linkReset}>
+            <Link href={getProductListPath()} className={styles.linkReset}>
               <Button className={styles.primaryButton}>Get Started for Free</Button>
             </Link>
           </div>

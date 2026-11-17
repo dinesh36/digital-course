@@ -221,7 +221,9 @@ $max-mobile-width: 768px;
       min-width: 0;
     }
 
-    @media (max-width: $breakpoint-mobile) {
+    // The tile is taller (4/3) only where a list is one column (see `$breakpoint-listing-single-column`): in the two columns
+    // above that the image keeps its 16/9 ratio, so the tile is not much bigger than it needs to be
+    @media (max-width: $breakpoint-listing-single-column) {
       .card {
         border-radius: var(--size-3);
       }

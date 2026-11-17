@@ -8,6 +8,7 @@ import {
 import { Button, Loading, Typography } from '@/ui/components';
 import { useAppDispatch, useAppSelector } from '@/ecom/store/hooks';
 import { fetchBlogByUrlKey } from '@/ecom/store/blog-details/blog-details-thunk';
+import { setBlogData } from '@/ecom/store/blog-details/blog-details-slice';
 import { ApiState } from '@/ecom/types/common';
 import styles from './BlogDetail.module.scss';
 import { BlogContent } from '@/ecom/components/blogs/BlogContent/BlogContent';
@@ -15,16 +16,20 @@ import { ArrowLeftIcon } from '@/ui/icons';
 import BlogCard from '@/ecom/components/blogs/BlogCard/BlogCard';
 import { HorizontalScrollContainer } from '@/ui/layout';
 import type { BlogPost } from '@/ecom/types/blog';
-import { getBlogSuggestions } from '@/ecom/services/blog/blog.service';
+import { getBlogPost, getBlogSuggestions } from '@/ecom/services/blog/blog.service';
 
-export default function BlogDetail() {
+// `initialPost` is the post the page was built with (`next build`): it is in the HTML. The store gets it after the page loads.
+export default function BlogDetail({ initialPost }: { initialPost?: BlogPost }) {
   const params = useParams();
   const router = useRouter();
   const rawKey = params?.['blog-urlKey'] ?? '';
   const blogUrlKey = rawKey ? decodeURIComponent(String(rawKey)) : '';
   const dispatch = useAppDispatch();
-  const blogData = useAppSelector((state) => state.blogDetails.data);
+  const storeBlog = useAppSelector((state) => state.blogDetails.data);
+  const blogData = storeBlog?.urlKey === blogUrlKey ? storeBlog : (initialPost ?? storeBlog);
   const blogDetailApiState = useAppSelector((state) => state.blogDetails.apiState);
+  // The built post is shown at once, whatever the store is doing
+  const isLoading = blogDetailApiState === ApiState.Loading && !initialPost;
   const tags = useMemo(() => blogData?.tags || [], [blogData]);
   const blogDate = useMemo(() => (blogData?.createdAt
     ? new Date(blogData?.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -47,7 +52,13 @@ export default function BlogDetail() {
 
   useEffect(() => {
     if (!blogUrlKey) return;
-    if (blogUrlKey && blogUrlKey !== blogData?.urlKey) {
+    if (initialPost) {
+      // The build read the post without counting a view (it is not a visitor): this visit is counted here
+      dispatch(setBlogData(initialPost));
+      getBlogPost(blogUrlKey).catch(() => undefined);
+      return;
+    }
+    if (blogUrlKey !== blogData?.urlKey) {
       dispatch(fetchBlogByUrlKey(blogUrlKey));
     }
   }, [blogUrlKey, dispatch]);
@@ -103,7 +114,7 @@ export default function BlogDetail() {
 
   const renderBlogHeader = () => (
     <div>
-      {blogDetailApiState === ApiState.Loading ? (
+      {isLoading ? (
         <div className={styles.skeleton} />
       ) : (
         <>
@@ -126,17 +137,17 @@ export default function BlogDetail() {
     </div>
   );
 
-  if (blogDetailApiState === ApiState.Error) {
+  if (blogDetailApiState === ApiState.Error && !initialPost) {
     return notFound();
   }
 
   return (
     <div className={styles.blogDetailPage}>
       {renderBlogHeader()}
-      {blogDetailApiState === ApiState.Loading ? (
+      {isLoading ? (
         <Loading message="Loading Blog Details..." />
       ) : (<BlogContent blogData={blogData} />)}
-      {blogDetailApiState !== ApiState.Loading && renderYouMightAlsoLike()}
+      {!isLoading && renderYouMightAlsoLike()}
     </div>
   );
 }

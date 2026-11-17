@@ -1,16 +1,26 @@
 'use client';
 
-import React, { useMemo, useState, type ComponentType } from 'react';
+import React, {
+  useEffect, useMemo, useState, type ComponentType,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './ProfileSettings.module.scss';
 import SidebarMenu, { SidebarMenuSection } from '@/ecom/components/common/SidebarMenu/SidebarMenu';
 import { ChangePassword, ProfileDetails, ProfilePurchases } from '@/ecom/pages/ProfileSettings';
 import { Button } from '@/ui/components';
 import { profileMenuItems } from '@/ecom/common/sidebarData';
+import { refreshCustomerInfo } from '@/ecom/services/auth';
+import { useAppDispatch } from '@/ecom/store/hooks';
 
 export default function ProfileSettings() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState<string>(profileMenuItems[0].items[0].key);
+
+  // The details shown here come from the browser's storage: fetch them again so they are the current ones.
+  useEffect(() => {
+    refreshCustomerInfo({ dispatch });
+  }, []);
 
   const componentMap: Record<string, ComponentType> = { ProfileDetails, ChangePassword, ProfilePurchases };
 
