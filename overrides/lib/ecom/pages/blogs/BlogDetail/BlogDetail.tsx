@@ -127,8 +127,8 @@ export default function BlogDetail({ initialPost }: { initialPost?: BlogPost }) 
           {renderBlogMeta()}
           {blogData?.image && (
             <img
-              src={blogData.image}
-              alt={blogData?.name || 'Blog Detail'}
+              src={blogData.image.url}
+              alt={blogData.image.alt || blogData.name || 'Blog Detail'}
               className={styles.featuredImage}
             />
           )}

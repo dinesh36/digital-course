@@ -27,8 +27,8 @@ export default function BlogCard({ post }: Props) {
       data-testid="blog-image"
     >
       <img
-        src={post.image ?? errorSrc}
-        alt={post.name ?? ''}
+        src={post.image?.url ?? errorSrc}
+        alt={post.image?.alt || post.name || ''}
         className={styles.blogImage}
       />
     </div>
