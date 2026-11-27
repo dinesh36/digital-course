@@ -15,7 +15,7 @@ import { BlogContent } from '@/ecom/components/blogs/BlogContent/BlogContent';
 import { ArrowLeftIcon } from '@/ui/icons';
 import BlogCard from '@/ecom/components/blogs/BlogCard/BlogCard';
 import { HorizontalScrollContainer } from '@/ui/layout';
-import type { BlogPost } from '@/ecom/types/blog';
+import { visibleCategories, type BlogPost } from '@/ecom/types/blog';
 import { getBlogPost, getBlogSuggestions } from '@/ecom/services/blog/blog.service';
 
 // `initialPost` is the post the page was built with (`next build`): it is in the HTML. The store gets it after the page loads.
@@ -30,7 +30,7 @@ export default function BlogDetail({ initialPost }: { initialPost?: BlogPost }) 
   const blogDetailApiState = useAppSelector((state) => state.blogDetails.apiState);
   // The built post is shown at once, whatever the store is doing
   const isLoading = blogDetailApiState === ApiState.Loading && !initialPost;
-  const tags = useMemo(() => blogData?.tags || [], [blogData]);
+  const categories = useMemo(() => visibleCategories(blogData?.categories), [blogData]);
   const blogDate = useMemo(() => (blogData?.createdAt
     ? new Date(blogData?.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : ''), [blogData]);
@@ -122,7 +122,11 @@ export default function BlogDetail({ initialPost }: { initialPost?: BlogPost }) 
             <ArrowLeftIcon width={12} />
             {' Back to Insights'}
           </Button>
-          {tags.length > 1 && (<span className={styles.tag}>{tags[1]}</span>)}
+          {categories.length > 0 && (
+            <div className={styles.tags}>
+              {categories.map((category) => (<span key={category.urlKey} className={styles.tag}>{category.name}</span>))}
+            </div>
+          )}
           {renderHeaderInfo()}
           {renderBlogMeta()}
           {blogData?.image && (

@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, CalendarIcon } from 'lucide-react';
 import { Typography } from '@/ui/components';
-import type { BlogPost } from '@/ecom/types/blog';
+import { visibleCategories, type BlogPost } from '@/ecom/types/blog';
 import styles from './BlogCard.module.scss';
 import { errorSrc } from '@/ecom/constants';
 import { UserIcon } from '@/ui/icons';
@@ -58,7 +58,7 @@ export default function BlogCard({ post }: Props) {
   );
 
   const renderCategory = () => {
-    const category = post.tags?.[1] || post.tags?.[0];
+    const category = visibleCategories(post.categories)[0]?.name;
     if (!category) return null;
     return (
       <div className={styles.category}>
